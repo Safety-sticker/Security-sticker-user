@@ -208,6 +208,53 @@
   .field .err.show{display:block;}
   .field .hint{font-size:.78rem;color:var(--muted);margin-top:5px;}
 
+  /* ===== Tabs ===== */
+  .tabs{
+    display:flex;gap:6px;
+    background:#f1f4f6;padding:5px;border-radius:12px;
+    margin-bottom:16px;
+  }
+  .tab{
+    flex:1;text-align:center;
+    padding:11px 12px;border-radius:9px;
+    font-weight:700;font-size:.9rem;
+    color:var(--muted);background:transparent;
+    border:none;transition:.15s;
+  }
+  .tab.active{background:#fff;color:var(--primary);box-shadow:0 2px 6px rgba(0,0,0,.06);}
+
+  /* ===== Trip List ===== */
+  .trip-item{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:12px;padding:14px 16px;
+    background:#fff;border:1px solid var(--border);
+    border-radius:12px;margin-bottom:10px;
+    transition:.15s;
+  }
+  .trip-item:hover{border-color:var(--primary);box-shadow:0 4px 12px rgba(11,107,82,.08);}
+  .trip-item .info{flex:1;min-width:0;}
+  .trip-item .code{
+    font-family:monospace;font-weight:700;
+    font-size:.95rem;color:var(--text);
+    word-break:break-all;
+  }
+  .trip-item .meta{
+    font-size:.78rem;color:var(--muted);margin-top:3px;
+  }
+  .trip-item .status-pill{
+    font-size:.72rem;font-weight:700;
+    padding:3px 10px;border-radius:999px;
+    white-space:nowrap;
+  }
+  .trip-item .status-pill.active{background:#e3f2fd;color:var(--info);}
+  .trip-item .status-pill.completed{background:#e6f4ef;color:var(--primary);}
+  .trip-item .status-pill.cancelled{background:#fbe9e7;color:#bf360c;}
+
+  .empty-state{
+    text-align:center;padding:40px 20px;color:var(--muted);
+  }
+  .empty-state svg{width:60px;height:60px;opacity:.3;margin-bottom:12px;}
+
   .btn{
     width:100%;padding:14px 18px;
     border:none;border-radius:10px;
@@ -230,6 +277,7 @@
     border:1.5px solid var(--primary);
   }
   .btn-outline:hover:not(:disabled){background:var(--primary-light);}
+  .btn-sm{padding:8px 12px;font-size:.82rem;width:auto;margin-bottom:0;}
 
   .btn .spinner{
     width:18px;height:18px;
@@ -258,6 +306,7 @@
   .loader-overlay .loader-text{
     position:absolute;top:calc(50% + 45px);
     color:var(--primary);font-weight:600;
+    font-size:.95rem;
   }
 
   .toast-wrap{
@@ -319,6 +368,47 @@
   }
   .back-link svg{width:18px;height:18px;}
 
+  /* ===== Trip Summary (for image export) ===== */
+  #tripSummary{
+    background:#fff;padding:24px;
+    border-radius:14px;border:2px dashed var(--primary);
+    text-align:center;
+    font-family:'Tahoma',sans-serif;
+    direction:rtl;
+  }
+  #tripSummary .brand{
+    display:flex;align-items:center;gap:8px;justify-content:center;
+    color:var(--primary);font-weight:700;font-size:1.2rem;
+    margin-bottom:16px;
+  }
+  #tripSummary .brand .shield{
+    width:26px;height:26px;background:var(--accent);
+    border-radius:6px 6px 50% 50%;
+    clip-path:polygon(50% 0,100% 20%,100% 70%,50% 100%,0 70%,0 20%);
+  }
+  #tripSummary .title{
+    font-size:1rem;color:var(--muted);margin-bottom:18px;
+  }
+  #tripSummary .code-big{
+    font-family:monospace;font-size:1.6rem;font-weight:800;
+    color:var(--primary);margin-bottom:20px;
+    padding:10px;background:#e6f4ef;border-radius:10px;
+  }
+  #tripSummary .rows{
+    text-align:right;font-size:.92rem;
+    background:#f8fafb;border-radius:10px;padding:14px;
+  }
+  #tripSummary .row{
+    display:flex;justify-content:space-between;
+    padding:8px 0;border-bottom:1px solid #e2e8f0;
+  }
+  #tripSummary .row:last-child{border-bottom:none;}
+  #tripSummary .row .lbl{color:var(--muted);font-weight:600;}
+  #tripSummary .row .val{font-weight:700;font-family:monospace;}
+  #tripSummary .footer{
+    margin-top:16px;font-size:.8rem;color:var(--muted);
+  }
+
   @media (max-width:400px){
     .action-btn{padding:16px;}
     .action-btn .icon{width:42px;height:42px;}
@@ -365,7 +455,7 @@
         </span>
         <span class="txt">
           <span>امسح QR السائق</span>
-          <small>تحقق من هوية السائق</small>
+          <small>تحقق وابدأ الرحلة فورًا</small>
         </span>
       </button>
 
@@ -374,8 +464,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </span>
         <span class="txt">
-          <span>البحث عن رحلة</span>
-          <small>ابحث باستخدام كود الرحلة</small>
+          <span>الرحلات والبحث</span>
+          <small>رحلاتي المحفوظة + بحث بكود</small>
         </span>
       </button>
 
@@ -412,7 +502,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM21 14v3M14 21h3M21 21h.01"/></svg>
         امسح QR السائق
       </h2>
-      <p>وجّه الكاميرا نحو كود QR الموجود على ملصق السائق.</p>
+      <p>بعد المسح، سيبدأ المتصفح بتتبع موقعك تلقائيًا لبدء الرحلة.</p>
     </div>
 
     <div id="scannerBox">
@@ -427,31 +517,16 @@
     </button>
   </section>
 
-  <!-- ============ DRIVER ============ -->
+  <!-- ============ DRIVER VERIFIED (لحظي) ============ -->
   <section class="screen" id="screen-driver">
-    <button class="back-link" data-back="home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      العودة للرئيسية
-    </button>
-
     <div id="driverBanner"></div>
-
-    <div class="card" id="driverCard">
+    <div class="card">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg>
         بيانات السائق
       </h2>
       <div id="driverInfo"></div>
     </div>
-
-    <div class="card">
-      <h2>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        تتبع الموقع
-      </h2>
-      <p>سيتم تتبع موقعك أثناء الرحلة لتوثيق خط السير. عند الضغط على "ابدأ الرحلة" سيطلب المتصفح إذن الوصول للموقع.</p>
-    </div>
-
     <div id="driverActions"></div>
   </section>
 
@@ -486,42 +561,46 @@
       إنهاء الرحلة
     </button>
 
-    <button class="btn btn-outline" id="printTripBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-      طباعة ملخص الرحلة
+    <button class="btn btn-outline" id="saveTripImageBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>
+      طباعة صورة الرحلة
     </button>
 
     <button class="btn btn-ghost" id="backHomeFromTrip">العودة للرئيسية</button>
   </section>
 
-  <!-- ============ SEARCH ============ -->
+  <!-- ============ TRIPS / SEARCH ============ -->
   <section class="screen" id="screen-search">
     <button class="back-link" data-back="home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
       العودة للرئيسية
     </button>
 
-    <div class="card">
-      <h2>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        البحث عن رحلة
-      </h2>
-      <p>أدخل كود الرحلة للاطلاع على بياناتها.</p>
+    <div class="tabs">
+      <button class="tab active" data-tab="my">رحلاتي</button>
+      <button class="tab" data-tab="find">بحث بكود</button>
     </div>
 
-    <div class="card">
-      <div class="field">
-        <label for="searchTripCode">كود الرحلة <span class="required">*</span></label>
-        <input type="text" id="searchTripCode" placeholder="مثال: TRP-ABC123" autocomplete="off" />
-        <div class="err" id="err-searchTripCode"></div>
+    <!-- TAB: My Trips -->
+    <div id="tab-my">
+      <div id="myTripsList"></div>
+    </div>
+
+    <!-- TAB: Search -->
+    <div id="tab-find" style="display:none;">
+      <div class="card">
+        <div class="field">
+          <label for="searchTripCode">كود الرحلة <span class="required">*</span></label>
+          <input type="text" id="searchTripCode" placeholder="مثال: TRP-ABC123-456" autocomplete="off" />
+          <div class="err" id="err-searchTripCode"></div>
+        </div>
+        <button class="btn btn-primary" id="searchTripBtn">
+          <span class="spinner"></span>
+          <span class="btn-text">بحث</span>
+        </button>
       </div>
-      <button class="btn btn-primary" id="searchTripBtn">
-        <span class="spinner"></span>
-        <span class="btn-text">بحث</span>
-      </button>
+      <div id="searchResult"></div>
     </div>
-
-    <div id="searchResult"></div>
   </section>
 
   <!-- ============ REPORT ============ -->
@@ -536,7 +615,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6"/></svg>
         تقديم بلاغ
       </h2>
-      <p>لأمانك، لا يمكن تقديم بلاغ إلا بربطه برحلة حقيقية. أدخل كود الرحلة الذي ظهر لك في التطبيق.</p>
+      <p>لأمانك، لا يمكن تقديم بلاغ إلا بربطه برحلة حقيقية.</p>
     </div>
 
     <form id="reportForm" class="card" novalidate>
@@ -588,8 +667,10 @@
   </div>
 </div>
 
-<!-- ===== Print ===== -->
-<div id="printArea" style="display:none;"></div>
+<!-- ===== Hidden trip summary (for image capture) ===== -->
+<div style="position:fixed; left:-9999px; top:0; width:420px;">
+  <div id="tripSummary"></div>
+</div>
 
 <!-- ===== Firebase SDK ===== -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -598,6 +679,9 @@
 
 <!-- ===== QR Scanner ===== -->
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<!-- ===== html2canvas (للصور) ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 /* ============================================================
@@ -616,7 +700,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/* App Check (اختياري) */
 const RECAPTCHA_SITE_KEY = "";
 if (RECAPTCHA_SITE_KEY) {
   try { firebase.appCheck().activate(RECAPTCHA_SITE_KEY, true); } catch(e){ console.warn(e); }
@@ -666,7 +749,50 @@ function statusLabel(s){
 }
 
 /* ============================================================
-   3) التنقل بين الشاشات
+   3) التخزين المحلي
+   ============================================================ */
+const LOCAL_KEY = "safety_sticker_my_trips_v1";
+
+function getMyTrips(){
+  try {
+    const raw = localStorage.getItem(LOCAL_KEY);
+    if(!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch(_) { return []; }
+}
+
+function saveMyTrip(trip){
+  try {
+    const list = getMyTrips();
+    // نمسح أي تكرار بنفس الكود
+    const filtered = list.filter(t => t.tripCode !== trip.tripCode);
+    filtered.unshift(trip);
+    // نحتفظ بآخر 50 رحلة فقط
+    const trimmed = filtered.slice(0, 50);
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(trimmed));
+  } catch(e){ console.warn("saveMyTrip failed", e); }
+}
+
+function updateMyTrip(tripCode, updates){
+  try {
+    const list = getMyTrips();
+    const idx = list.findIndex(t => t.tripCode === tripCode);
+    if(idx === -1) return;
+    list[idx] = { ...list[idx], ...updates };
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
+  } catch(e){ console.warn("updateMyTrip failed", e); }
+}
+
+function removeMyTrip(tripCode){
+  try {
+    const list = getMyTrips().filter(t => t.tripCode !== tripCode);
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
+  } catch(e){ console.warn("removeMyTrip failed", e); }
+}
+
+/* ============================================================
+   4) التنقل بين الشاشات
    ============================================================ */
 function showScreen(name){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
@@ -674,6 +800,7 @@ function showScreen(name){
   if(target) target.classList.add("active");
   window.scrollTo({top:0,behavior:"smooth"});
   if(name !== "scan") stopScanner();
+  if(name === "search") renderMyTrips();
 }
 
 document.querySelectorAll("[data-back]").forEach(b=>{
@@ -681,7 +808,7 @@ document.querySelectorAll("[data-back]").forEach(b=>{
 });
 
 /* ============================================================
-   4) Modal
+   5) Modal
    ============================================================ */
 function openModal({icon="warn", title="", text="", buttons=[]}){
   $("modalBody").innerHTML = `
@@ -713,27 +840,25 @@ function defaultIcon(type){
 }
 
 /* ============================================================
-   5) الحالة العامة
+   6) الحالة العامة
    ============================================================ */
 let scanState = { scanner: null, scanning: false, busy: false };
 let currentDriver = null;
 let currentTrip = null;
 let activeTripId = null;
 
-/* تتبع الموقع */
 let geoWatchId = null;
 let locationPath = [];
 let lastPushedLocation = null;
 let lastPushTimestamp = 0;
 let tripDocRef = null;
 
-/* إعدادات */
-const PUSH_INTERVAL_MS = 30000;    // كل 30 ثانية على الأقل
-const MIN_DISTANCE_METERS = 20;    // أو عند حركة 20 متر
-const MAX_POINTS = 2000;           // حد أقصى للنقاط
+const PUSH_INTERVAL_MS = 30000;
+const MIN_DISTANCE_METERS = 20;
+const MAX_POINTS = 2000;
 
 /* ============================================================
-   6) QR Scanning
+   7) QR Scanning
    ============================================================ */
 $("goScan").addEventListener("click", ()=>{
   showScreen("scan");
@@ -786,7 +911,6 @@ $("stopScan").addEventListener("click", ()=>{
   showScreen("home");
 });
 
-/* استخراج كود السائق من نص الـ QR */
 function extractDriverCode(text){
   if(!text) return null;
   const trimmed = text.trim();
@@ -805,7 +929,6 @@ function extractDriverCode(text){
   return null;
 }
 
-/* معالجة النص الممسوح */
 async function handleScannedText(text){
   const code = extractDriverCode(text);
   if(!code){
@@ -838,13 +961,12 @@ async function handleScannedText(text){
       openModal({
         icon:"error",
         title:"السائق غير مفعّل",
-        text:"هذا السائق موقوف حاليًا من قبل الإدارة. لا يمكن بدء الرحلة.",
+        text:"هذا السائق موقوف حاليًا. لا يمكن بدء الرحلة.",
         buttons:[{label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}]
       });
       return;
     }
 
-    /* بيانات السائق العامة */
     currentDriver = {
       id: doc.id,
       fullName: data.fullName || "—",
@@ -853,18 +975,20 @@ async function handleScannedText(text){
       status: data.status || "enabled"
     };
 
+    // ✅ عرض سريع للسائق ثم بدء الرحلة تلقائيًا
     renderDriverScreen();
     showScreen("driver");
+    // نبدأ تلقائيًا بعد ثانيتين للمعاينة
+    setTimeout(()=> autoStartTrip(), 1500);
+
   } catch(err){
     console.error(err);
-    let msg = "تعذّر الاتصال بالخادم. تحقق من الإنترنت.";
-    if(err.code === "permission-denied" || /permission/i.test(err.message)) {
-      msg = "لا توجد صلاحية للوصول إلى بيانات السائقين.";
-    }
+    let msg = "تعذّر الاتصال بالخادم.";
+    if(err.code === "permission-denied") msg = "لا توجد صلاحية للوصول إلى بيانات السائقين.";
     openModal({
       icon:"error",
       title:"خطأ في الاتصال",
-      text:msg,
+      text: msg,
       buttons:[{label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}]
     });
   } finally {
@@ -872,7 +996,6 @@ async function handleScannedText(text){
   }
 }
 
-/* تحميل السائق تلقائيًا من ?driver= */
 async function autoLoadDriverFromUrl(){
   const params = new URLSearchParams(window.location.search);
   const code = params.get("driver") || params.get("d");
@@ -904,7 +1027,7 @@ async function autoLoadDriverFromUrl(){
       openModal({
         icon:"error",
         title:"السائق غير مفعّل",
-        text:"هذا السائق موقوف حاليًا. لا يمكن بدء الرحلة.",
+        text:"هذا السائق موقوف حاليًا.",
         buttons:[{label:"حسنًا", className:"btn-primary"}]
       });
       return;
@@ -920,6 +1043,8 @@ async function autoLoadDriverFromUrl(){
 
     renderDriverScreen();
     showScreen("driver");
+    setTimeout(()=> autoStartTrip(), 1500);
+
   } catch(err){
     console.error(err);
     toast("تعذّر التحقق من السائق.", "error");
@@ -929,7 +1054,7 @@ async function autoLoadDriverFromUrl(){
 }
 
 /* ============================================================
-   7) Driver Screen
+   8) Driver Screen (عرض لحظي قبل البدء التلقائي)
    ============================================================ */
 function renderDriverScreen(){
   const d = currentDriver;
@@ -938,7 +1063,7 @@ function renderDriverScreen(){
   $("driverBanner").innerHTML = `
     <div class="status-banner success">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-      تم التحقق من السائق بنجاح — يمكنك بدء الرحلة
+      تم التحقق من السائق — جارٍ بدء الرحلة تلقائيًا...
     </div>
   `;
 
@@ -949,25 +1074,17 @@ function renderDriverScreen(){
     <div class="info-row"><span class="lbl">الحالة:</span><span class="val" style="color:#2e7d32;">مفعّل ✅</span></div>
   `;
 
-  $("driverActions").innerHTML = "";
-  const startBtn = document.createElement("button");
-  startBtn.className = "btn btn-success";
-  startBtn.innerHTML = `<span class="spinner"></span><span class="btn-text">ابدأ الرحلة</span>`;
-  startBtn.addEventListener("click", startTrip);
-  $("driverActions").appendChild(startBtn);
-
-  const cancelBtn = document.createElement("button");
-  cancelBtn.className = "btn btn-ghost";
-  cancelBtn.textContent = "إلغاء";
-  cancelBtn.addEventListener("click", ()=>{
+  $("driverActions").innerHTML = `
+    <button class="btn btn-ghost" id="cancelAutoStart">إلغاء</button>
+  `;
+  $("cancelAutoStart").addEventListener("click", ()=>{
     currentDriver = null;
     showScreen("home");
   });
-  $("driverActions").appendChild(cancelBtn);
 }
 
 /* ============================================================
-   8) Geolocation
+   9) Geolocation
    ============================================================ */
 function getCurrentPositionOnce(){
   return new Promise((resolve, reject)=>{
@@ -1000,7 +1117,7 @@ function distanceMeters(a, b){
 }
 
 /* ============================================================
-   9) Start Trip
+   10) Start Trip (تلقائي)
    ============================================================ */
 function generateTripCode(){
   const rand = Math.random().toString(36).slice(2,8).toUpperCase();
@@ -1008,12 +1125,8 @@ function generateTripCode(){
   return `TRP-${ts}-${rand}`;
 }
 
-async function startTrip(){
+async function autoStartTrip(){
   if(!currentDriver) return;
-
-  const btn = document.querySelector("#driverActions .btn-success");
-  btn.classList.add("loading");
-  btn.disabled = true;
 
   try {
     // 1) نطلب الموقع الأول
@@ -1023,15 +1136,21 @@ async function startTrip(){
       startLoc = await getCurrentPositionOnce();
     } catch(err){
       showLoader(false);
-      let msg = "تعذّر الحصول على موقعك. يرجى السماح بالوصول للموقع من إعدادات المتصفح.";
+      let msg = "تعذّر الحصول على موقعك. يرجى السماح بالوصول للموقع.";
       if(err && err.code === 1) msg = "تم رفض إذن الموقع. لا يمكن بدء الرحلة بدون تحديد الموقع.";
-      if(err && err.code === 2) msg = "خدمة الموقع غير متاحة حاليًا. حاول مرة أخرى.";
-      if(err && err.code === 3) msg = "انتهت مهلة تحديد الموقع. حاول مرة أخرى.";
+      if(err && err.code === 2) msg = "خدمة الموقع غير متاحة حاليًا.";
+      if(err && err.code === 3) msg = "انتهت مهلة تحديد الموقع.";
       openModal({
         icon:"error",
         title:"لم نتمكن من بدء الرحلة",
         text: msg,
-        buttons:[{label:"حسنًا", className:"btn-primary"}]
+        buttons:[
+          {label:"المحاولة مرة أخرى", className:"btn-primary", onClick: autoStartTrip},
+          {label:"العودة للرئيسية", className:"btn-ghost", onClick:()=>{
+            currentDriver = null;
+            showScreen("home");
+          }}
+        ]
       });
       return;
     }
@@ -1048,7 +1167,6 @@ async function startTrip(){
       capturedAt: now
     };
 
-    // أول نقطتين في locationPath
     const initialPath = [
       { lat: startLoc.lat, lng: startLoc.lng, accuracy: startLoc.accuracy }
     ];
@@ -1086,56 +1204,53 @@ async function startTrip(){
       startTime: new Date()
     };
 
+    // ✅ نحفظها محليًا
+    saveMyTrip({
+      tripCode,
+      tripDocId: docRef.id,
+      driverName: currentDriver.fullName,
+      driverPhone: currentDriver.phone,
+      driverCode: currentDriver.driverCode,
+      startTime: Date.now(),
+      endTime: null,
+      status: "active"
+    });
+
     renderActiveTrip();
     renderTrackingStatus();
     showScreen("trip");
     toast("تم بدء الرحلة وبدأ تتبع الموقع.", "success");
 
-    // 3) نبدأ مراقبة الموقع
     startGeoWatch();
 
   } catch(err){
     console.error(err);
     let msg = "فشل بدء الرحلة.";
-    if(err.code === "permission-denied" || /permission/i.test(err.message)) {
-      msg = "لا توجد صلاحية لبدء الرحلة.";
-    } else if(err.message) msg += " " + err.message;
+    if(err.code === "permission-denied") msg = "لا توجد صلاحية لبدء الرحلة.";
+    else if(err.message) msg += " " + err.message;
     toast(msg, "error");
   } finally {
     showLoader(false);
-    btn.classList.remove("loading");
-    btn.disabled = false;
   }
 }
 
 /* ============================================================
-   10) Geolocation Watch + Firestore Push
+   11) Geolocation Watch
    ============================================================ */
 function startGeoWatch(){
-  if(!navigator.geolocation) {
-    toast("الجهاز لا يدعم تحديد الموقع.", "error");
-    return;
-  }
+  if(!navigator.geolocation) return;
   if(geoWatchId !== null) return;
 
   geoWatchId = navigator.geolocation.watchPosition(
     (pos) => {
-      const point = {
+      handleNewLocation({
         lat: pos.coords.latitude,
         lng: pos.coords.longitude,
         accuracy: pos.coords.accuracy || 0
-      };
-      handleNewLocation(point);
+      });
     },
-    (err) => {
-      console.warn("geolocation watch error", err);
-      // لا نوقف الرحلة — نكتفي بتسجيل الخطأ
-    },
-    {
-      enableHighAccuracy: true,
-      timeout: 20000,
-      maximumAge: 5000
-    }
+    (err) => console.warn("geolocation watch error", err),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 5000 }
   );
 }
 
@@ -1155,14 +1270,12 @@ function handleNewLocation(point){
 
   if(!shouldPush) return;
 
-  // أضف النقطة محليًا
   locationPath.push({
     lat: +point.lat.toFixed(6),
     lng: +point.lng.toFixed(6),
     accuracy: Math.round(point.accuracy)
   });
 
-  // اقصر المصفوفة لو تجاوزت الحد
   if(locationPath.length > MAX_POINTS){
     locationPath = locationPath.slice(-MAX_POINTS);
   }
@@ -1170,10 +1283,7 @@ function handleNewLocation(point){
   lastPushedLocation = { lat: point.lat, lng: point.lng };
   lastPushTimestamp = now;
 
-  // ارفع تحديث للـ Firestore
   pushLocationUpdate(point);
-
-  // حدّث الواجهة
   renderTrackingStatus();
 }
 
@@ -1224,7 +1334,7 @@ function renderTrackingStatus(){
 }
 
 /* ============================================================
-   11) Active Trip Render
+   12) Active Trip Render
    ============================================================ */
 function renderActiveTrip(){
   if(!currentTrip) return;
@@ -1239,13 +1349,13 @@ function renderActiveTrip(){
 }
 
 /* ============================================================
-   12) End Trip
+   13) End Trip
    ============================================================ */
 $("endTripBtn").addEventListener("click", ()=>{
   openModal({
     icon:"warn",
     title:"إنهاء الرحلة؟",
-    text:"سيتم إنهاء الرحلة وتسجيل وقت الانتهاء وموقعك الحالي. لا يمكن التراجع بعد ذلك.",
+    text:"سيتم إنهاء الرحلة وتسجيل وقت الانتهاء وموقعك الحالي.",
     buttons:[
       {label:"نعم، إنهِ الرحلة", className:"btn-danger", onClick: endTrip},
       {label:"إلغاء", className:"btn-ghost"}
@@ -1261,10 +1371,8 @@ async function endTrip(){
   btn.disabled = true;
 
   try {
-    // 1) نوقف المراقبة
     stopGeoWatch();
 
-    // 2) نحاول نجيب آخر موقع
     let endLoc = null;
     try {
       const last = await getCurrentPositionOnce();
@@ -1274,11 +1382,9 @@ async function endTrip(){
         accuracy: Math.round(last.accuracy || 0),
         capturedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
-      // نضيفها للمسار
       locationPath.push({ lat: endLoc.lat, lng: endLoc.lng, accuracy: endLoc.accuracy });
-    } catch(_){ /* تجاهل */ }
+    } catch(_){}
 
-    // 3) نحدّث الرحلة
     showLoader(true, "جارٍ إنهاء الرحلة...");
     await tripDocRef.update({
       status: "completed",
@@ -1291,10 +1397,16 @@ async function endTrip(){
     currentTrip.status = "completed";
     currentTrip.endTime = new Date();
 
+    // ✅ نحدّث النسخة المحلية
+    updateMyTrip(currentTrip.tripCode, {
+      status: "completed",
+      endTime: Date.now()
+    });
+
     openModal({
       icon:"success",
       title:"انتهت الرحلة",
-      text:`كود الرحلة: ${currentTrip.tripCode}\nعدد النقاط المسجّلة: ${locationPath.length}\nشكرًا لاستخدامك لزقة أمان.`,
+      text:`كود الرحلة: ${currentTrip.tripCode}\nعدد النقاط: ${locationPath.length}\nشكرًا لاستخدامك لزقة أمان.`,
       buttons:[
         {label:"العودة للرئيسية", className:"btn-primary", onClick:()=>{
           currentTrip = null; activeTripId = null; currentDriver = null;
@@ -1307,11 +1419,9 @@ async function endTrip(){
   } catch(err){
     console.error(err);
     let msg = "فشل إنهاء الرحلة.";
-    if(err.code === "permission-denied" || /permission/i.test(err.message)) {
-      msg = "لا توجد صلاحية لإنهاء الرحلة.";
-    } else if(err.message) msg += " " + err.message;
+    if(err.code === "permission-denied") msg = "لا توجد صلاحية لإنهاء الرحلة.";
+    else if(err.message) msg += " " + err.message;
     toast(msg, "error");
-    // نعاود التشغيل لو فشل
     startGeoWatch();
   } finally {
     showLoader(false);
@@ -1325,7 +1435,7 @@ $("backHomeFromTrip").addEventListener("click", ()=>{
     openModal({
       icon:"warn",
       title:"لديك رحلة نشطة",
-      text:"إذا خرجت الآن، ستبقى الرحلة نشطة في النظام. يمكنك إنهاؤها لاحقًا من البحث بكود الرحلة.",
+      text:"إذا خرجت الآن، ستبقى الرحلة نشطة. يمكنك إنهاؤها من قائمة رحلاتي.",
       buttons:[
         {label:"البقاء هنا", className:"btn-primary"},
         {label:"الخروج للرئيسية", className:"btn-ghost", onClick:()=>{
@@ -1341,41 +1451,144 @@ $("backHomeFromTrip").addEventListener("click", ()=>{
 });
 
 /* ============================================================
-   13) Print Trip
+   14) حفظ صورة الرحلة
    ============================================================ */
-$("printTripBtn").addEventListener("click", ()=>{
+$("saveTripImageBtn").addEventListener("click", async ()=>{
   if(!currentTrip) return;
-  const area = $("printArea");
-  const startLoc = locationPath[0];
-  const endLoc = locationPath[locationPath.length-1];
-  area.innerHTML = `
-    <div style="padding:30px;text-align:center;font-family:Tahoma,sans-serif;direction:rtl;">
-      <h1 style="color:#0b6b52;margin-bottom:16px;">لزقة أمان</h1>
-      <p style="color:#6b7280;margin-bottom:24px;">ملخص الرحلة</p>
-      <div style="border:2px dashed #0b6b52;border-radius:12px;padding:24px;max-width:420px;margin:0 auto;">
-        <div style="font-family:monospace;font-size:1.6rem;font-weight:700;color:#0b6b52;margin-bottom:16px;">${escapeHtml(currentTrip.tripCode)}</div>
-        <div style="text-align:right;font-size:.92rem;">
-          <div style="margin:8px 0;"><strong>السائق:</strong> ${escapeHtml(currentTrip.driverName||"—")}</div>
-          <div style="margin:8px 0;"><strong>الهاتف:</strong> ${escapeHtml(currentTrip.driverPhone||"—")}</div>
-          <div style="margin:8px 0;"><strong>كود السائق:</strong> <span style="font-family:monospace;">${escapeHtml(currentTrip.driverCode||"—")}</span></div>
-          <div style="margin:8px 0;"><strong>بداية:</strong> ${fmtDate(currentTrip.startTime)}</div>
-          <div style="margin:8px 0;"><strong>نهاية:</strong> ${fmtDate(currentTrip.endTime)}</div>
-          <div style="margin:8px 0;"><strong>عدد النقاط:</strong> ${locationPath.length}</div>
-          ${startLoc ? `<div style="margin:8px 0;"><strong>البداية:</strong> <span style="font-family:monospace;">${startLoc.lat.toFixed(5)}, ${startLoc.lng.toFixed(5)}</span></div>` : ""}
-          ${endLoc ? `<div style="margin:8px 0;"><strong>النهاية:</strong> <span style="font-family:monospace;">${endLoc.lat.toFixed(5)}, ${endLoc.lng.toFixed(5)}</span></div>` : ""}
-        </div>
+
+  const btn = $("saveTripImageBtn");
+  btn.disabled = true;
+  btn.classList.add("loading");
+
+  try {
+    const startLoc = locationPath[0];
+    const endLoc = locationPath[locationPath.length-1];
+
+    // نبني الـ HTML للملخص
+    $("tripSummary").innerHTML = `
+      <div class="brand">
+        <span class="shield"></span>
+        لزقة أمان
       </div>
-      <p style="color:#6b7280;font-size:.8rem;margin-top:24px;">شكرًا لاستخدامك لزقة أمان</p>
-    </div>
-  `;
-  area.style.display = "block";
-  setTimeout(()=>{ window.print(); area.style.display = "none"; }, 300);
+      <div class="title">ملخص الرحلة</div>
+      <div class="code-big">${escapeHtml(currentTrip.tripCode)}</div>
+      <div class="rows">
+        <div class="row"><span class="lbl">السائق:</span><span class="val">${escapeHtml(currentTrip.driverName || "—")}</span></div>
+        <div class="row"><span class="lbl">الهاتف:</span><span class="val">${escapeHtml(currentTrip.driverPhone || "—")}</span></div>
+        <div class="row"><span class="lbl">كود السائق:</span><span class="val">${escapeHtml(currentTrip.driverCode || "—")}</span></div>
+        <div class="row"><span class="lbl">البداية:</span><span class="val">${fmtDate(currentTrip.startTime)}</span></div>
+        <div class="row"><span class="lbl">النهاية:</span><span class="val">${fmtDate(currentTrip.endTime)}</span></div>
+        <div class="row"><span class="lbl">عدد النقاط:</span><span class="val">${locationPath.length}</span></div>
+        ${startLoc ? `<div class="row"><span class="lbl">موقع البداية:</span><span class="val" style="font-size:.78rem;">${startLoc.lat.toFixed(5)}, ${startLoc.lng.toFixed(5)}</span></div>` : ""}
+        ${endLoc ? `<div class="row"><span class="lbl">موقع النهاية:</span><span class="val" style="font-size:.78rem;">${endLoc.lat.toFixed(5)}, ${endLoc.lng.toFixed(5)}</span></div>` : ""}
+        <div class="row"><span class="lbl">الحالة:</span><span class="val">${statusLabel(currentTrip.status)}</span></div>
+      </div>
+      <div class="footer">شكرًا لاستخدامك لزقة أمان</div>
+    `;
+
+    // ننتظر قليلًا عشان الـ HTML يترسم
+    await new Promise(r => setTimeout(r, 100));
+
+    const canvas = await html2canvas($("tripSummary"), {
+      backgroundColor: "#ffffff",
+      scale: 2,
+      useCORS: true,
+      logging: false
+    });
+
+    // نحولها لصورة
+    const dataUrl = canvas.toDataURL("image/png");
+
+    // ننزلها
+    const a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = `${currentTrip.tripCode || "trip"}-summary.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    toast("تم حفظ صورة الرحلة.", "success");
+  } catch(err){
+    console.error(err);
+    toast("فشل إنشاء الصورة: " + err.message, "error");
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove("loading");
+  }
 });
 
 /* ============================================================
-   14) Search Trip
+   15) My Trips (localStorage) + Search
    ============================================================ */
 $("goSearch").addEventListener("click", ()=>showScreen("search"));
+
+// Tabs
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    const which = tab.dataset.tab;
+    $("tab-my").style.display = which === "my" ? "block" : "none";
+    $("tab-find").style.display = which === "find" ? "block" : "none";
+  });
+});
+
+function renderMyTrips(){
+  const list = getMyTrips();
+  const wrap = $("myTripsList");
+  if(list.length === 0){
+    wrap.innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <p>لا توجد رحلات محفوظة بعد.</p>
+        <p style="font-size:.85rem;margin-top:6px;">ابدأ رحلة جديدة من "امسح QR السائق".</p>
+      </div>
+    `;
+    return;
+  }
+
+  wrap.innerHTML = list.map(t=>{
+    const statusClass = t.status === "completed" ? "completed" : t.status === "cancelled" ? "cancelled" : "active";
+    return `
+      <div class="trip-item" data-code="${escapeHtml(t.tripCode)}">
+        <div class="info">
+          <div class="code">${escapeHtml(t.tripCode)}</div>
+          <div class="meta">
+            ${escapeHtml(t.driverName || "—")} · ${fmtDate(t.startTime)}
+          </div>
+        </div>
+        <span class="status-pill ${statusClass}">${statusLabel(t.status)}</span>
+        <button class="btn btn-danger btn-sm" data-remove="${escapeHtml(t.tripCode)}" title="حذف">×</button>
+      </div>
+    `;
+  }).join("");
+
+  // أزرار الحذف
+  wrap.querySelectorAll("[data-remove]").forEach(b=>{
+    b.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const code = b.dataset.remove;
+      if(confirm("حذف هذه الرحلة من قائمتك المحلية؟")){
+        removeMyTrip(code);
+        renderMyTrips();
+      }
+    });
+  });
+
+  // الضغط على الرحلة → يجيب تفاصيلها من Firestore
+  wrap.querySelectorAll(".trip-item").forEach(item=>{
+    item.addEventListener("click", ()=>{
+      const code = item.dataset.code;
+      $("searchTripCode").value = code;
+      // نبدّل للتاب التاني
+      document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+      document.querySelector('.tab[data-tab="find"]').classList.add("active");
+      $("tab-my").style.display = "none";
+      $("tab-find").style.display = "block";
+      $("searchTripBtn").click();
+    });
+  });
+}
 
 $("searchTripBtn").addEventListener("click", async ()=>{
   const code = ($("searchTripCode").value || "").trim().toUpperCase();
@@ -1429,11 +1642,7 @@ $("searchTripBtn").addEventListener("click", async ()=>{
       </div>`;
   } catch(err){
     console.error(err);
-    let msg = "تعذّر البحث.";
-    if(err.code === "permission-denied" || /permission/i.test(err.message)) {
-      msg = "لا توجد صلاحية لقراءة الرحلات.";
-    }
-    toast(msg, "error");
+    toast("تعذّر البحث: " + err.message, "error");
   } finally {
     btn.classList.remove("loading");
     btn.disabled = false;
@@ -1441,7 +1650,7 @@ $("searchTripBtn").addEventListener("click", async ()=>{
 });
 
 /* ============================================================
-   15) Report
+   16) Report
    ============================================================ */
 $("goReport").addEventListener("click", ()=>showScreen("report"));
 
@@ -1505,7 +1714,6 @@ $("reportForm").addEventListener("submit", async (e)=>{
   btn.disabled = true;
 
   try {
-    // التحقق من وجود الرحلة
     const tripSnap = await db.collection("trips")
       .where("tripCode", "==", tripCodeRaw)
       .limit(1)
@@ -1547,9 +1755,8 @@ $("reportForm").addEventListener("submit", async (e)=>{
   } catch(err){
     console.error(err);
     let msg = "فشل إرسال البلاغ.";
-    if(err.code === "permission-denied" || /permission/i.test(err.message)) {
-      msg = "لا توجد صلاحية للتحقق من الرحلة.";
-    } else if(err.message) msg += " " + err.message;
+    if(err.code === "permission-denied") msg = "لا توجد صلاحية للتحقق من الرحلة.";
+    else if(err.message) msg += " " + err.message;
     toast(msg, "error");
   } finally {
     btn.classList.remove("loading");
@@ -1558,8 +1765,9 @@ $("reportForm").addEventListener("submit", async (e)=>{
 });
 
 /* ============================================================
-   16) تشغيل تلقائي عند التحميل
+   17) تشغيل تلقائي
    ============================================================ */
+renderMyTrips();
 autoLoadDriverFromUrl();
 
 window.addEventListener("beforeunload", ()=>{
