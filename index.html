@@ -5,434 +5,532 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>لزقة أمان - للركاب</title>
 <style>
-  :root{
-    --primary:#0b6b52;
-    --primary-dark:#084d3b;
-    --primary-light:#e6f4ef;
-    --accent:#f4b400;
-    --danger:#c62828;
-    --warn:#f57c00;
-    --success:#2e7d32;
-    --info:#1565c0;
-    --text:#1a1a1a;
-    --muted:#6b7280;
-    --card:#ffffff;
-    --border:#e2e8f0;
-    --radius:14px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html,body{height:100%;}
-  body{
-    font-family:'Segoe UI','Tahoma',system-ui,-apple-system,sans-serif;
-    background:linear-gradient(180deg,#e6f4ef 0%,#f4f6f8 240px,#f4f6f8 100%);
-    background-attachment:fixed;
-    color:var(--text);
-    min-height:100vh;
-    line-height:1.6;
-    direction:rtl;
-  }
-  button{font-family:inherit;cursor:pointer;}
-  input,select,textarea{font-family:inherit;}
-  a{color:var(--primary);text-decoration:none;}
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
 
-  .container{max-width:600px;margin:0 auto;padding:20px;}
+:root {
+  --bg: #0a0e17;
+  --surface: #121826;
+  --surface2: #1a2236;
+  --surface3: #243049;
+  --border: #2a3650;
+  --text: #f0f4fc;
+  --text2: #a0aec8;
+  --muted: #6b7a99;
+  --neon: #00e5c0;
+  --neon-dim: rgba(0, 229, 192, 0.15);
+  --neon-glow: 0 0 24px rgba(0, 229, 192, 0.35);
+  --gold: #ffc107;
+  --gold-dim: rgba(255, 193, 7, 0.12);
+  --red: #ff4757;
+  --red-dim: rgba(255, 71, 87, 0.15);
+  --blue: #4f8cff;
+  --blue-dim: rgba(79, 140, 255, 0.15);
+  --green: #2ed573;
+  --green-dim: rgba(46, 213, 115, 0.15);
+  --radius: 16px;
+  --radius-lg: 24px;
+}
 
-  .site-header{text-align:center;padding:22px 0 8px;}
-  .site-header .logo{
-    display:inline-flex;align-items:center;gap:10px;
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    color:#fff;padding:10px 22px;border-radius:999px;
-    font-weight:700;font-size:1.1rem;
-    box-shadow:0 8px 24px rgba(11,107,82,.25);
-  }
-  .site-header .logo .shield{
-    width:22px;height:22px;background:var(--accent);
-    border-radius:6px 6px 50% 50%;
-    clip-path:polygon(50% 0,100% 20%,100% 70%,50% 100%,0 70%,0 20%);
-  }
-  .site-header p{color:var(--muted);font-size:.9rem;margin-top:10px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:'Tajawal',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.65;
+  direction:rtl;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit}
+a{color:var(--neon);text-decoration:none}
 
-  .screen{display:none;animation:fade .25s;}
-  .screen.active{display:block;}
-  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+/* HEADER */
+.header{
+  padding:20px 20px 0;
+  max-width:480px;
+  margin:0 auto;
+}
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo-mark{
+  width:40px;height:40px;
+  background:linear-gradient(135deg,var(--neon),#00b894);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--neon-glow);
+}
+.logo-mark svg{width:22px;height:22px;color:#0a0e17}
+.logo-name{
+  font-size:1.15rem;
+  font-weight:900;
+  color:var(--text);
+  letter-spacing:-0.02em;
+}
+.logo-sub{
+  font-size:0.7rem;
+  color:var(--muted);
+  font-weight:500;
+}
 
-  .card{
-    background:var(--card);border-radius:var(--radius);
-    padding:20px;border:1px solid var(--border);
-    box-shadow:0 2px 8px rgba(0,0,0,.03);
-    margin-bottom:16px;
-  }
-  .card h2{
-    font-size:1.15rem;font-weight:700;
-    margin-bottom:8px;color:var(--text);
-    display:flex;align-items:center;gap:8px;
-  }
-  .card h2 svg{width:22px;height:22px;color:var(--primary);flex-shrink:0;}
-  .card p{color:var(--muted);font-size:.92rem;}
+/* CONTAINER */
+.container{
+  max-width:480px;
+  margin:0 auto;
+  padding:16px 16px 56px;
+}
 
-  .actions-grid{display:grid;gap:12px;margin-top:8px;}
-  .action-btn{
-    display:flex;align-items:center;gap:14px;
-    width:100%;padding:18px 20px;
-    border:none;border-radius:var(--radius);
-    font-size:1rem;font-weight:700;
-    text-align:right;color:#fff;
-    transition:.2s;cursor:pointer;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-  }
-  .action-btn:active{transform:scale(.98);}
-  .action-btn .icon{
-    width:48px;height:48px;flex-shrink:0;
-    background:rgba(255,255,255,.2);
-    border-radius:12px;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .action-btn .icon svg{width:26px;height:26px;}
-  .action-btn .txt{display:flex;flex-direction:column;gap:2px;}
-  .action-btn .txt small{font-size:.8rem;font-weight:400;opacity:.9;}
-  .action-btn.primary{background:linear-gradient(135deg,#0b6b52,#084d3b);}
-  .action-btn.secondary{background:linear-gradient(135deg,#1565c0,#0d47a1);}
-  .action-btn.danger{background:linear-gradient(135deg,#c62828,#8e0000);}
+/* SCREENS */
+.screen{display:none;animation:fadeUp .3s ease}
+.screen.active{display:block}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:none}
+}
 
-  .notice{
-    background:#fff8e1;border:1px solid #ffe082;
-    border-radius:var(--radius);padding:14px 16px;
-    display:flex;gap:12px;align-items:flex-start;
-    font-size:.88rem;color:#7a5c00;
-    margin-top:16px;
-  }
-  .notice .icon{flex-shrink:0;color:#b26a00;}
-  .notice .icon svg{width:22px;height:22px;}
+/* WELCOME */
+.welcome{
+  margin:24px 0 28px;
+  text-align:center;
+}
+.welcome h2{
+  font-size:1.6rem;
+  font-weight:900;
+  color:var(--text);
+  margin-bottom:8px;
+  letter-spacing:-0.03em;
+}
+.welcome h2 span{color:var(--neon)}
+.welcome p{
+  font-size:0.9rem;
+  color:var(--text2);
+  max-width:300px;
+  margin:0 auto;
+  line-height:1.7;
+}
 
-  #scannerBox{
-    background:#000;border-radius:var(--radius);
-    overflow:hidden;position:relative;
-    aspect-ratio:1;width:100%;
-    margin-bottom:14px;
-  }
-  #scannerBox video{width:100%;height:100%;object-fit:cover;}
-  .scan-overlay{
-    position:absolute;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    pointer-events:none;
-  }
-  .scan-frame{
-    width:65%;aspect-ratio:1;
-    border:3px solid rgba(244,180,0,.9);
-    border-radius:20px;
-    box-shadow:0 0 0 9999px rgba(0,0,0,.35);
-  }
-  .scan-hint{
-    position:absolute;bottom:16px;left:0;right:0;
-    text-align:center;color:#fff;font-size:.88rem;
-    text-shadow:0 2px 6px rgba(0,0,0,.6);
-  }
+/* BIG ACTIONS */
+.big-actions{display:flex;flex-direction:column;gap:14px}
 
-  .info-row{
-    display:flex;justify-content:space-between;
-    padding:12px 0;border-bottom:1px solid #f1f4f6;
-    font-size:.92rem;
-  }
-  .info-row:last-child{border-bottom:none;}
-  .info-row .lbl{color:var(--muted);font-weight:600;}
-  .info-row .val{font-weight:700;text-align:left;word-break:break-word;}
+.big-btn{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  width:100%;
+  padding:22px 20px;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);
+  background:var(--surface);
+  text-align:right;
+  transition:all .2s;
+  position:relative;
+  overflow:hidden;
+}
+.big-btn::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity .25s;
+  border-radius:inherit;
+}
+.big-btn:active{transform:scale(.97)}
+.big-btn.scan::before{background:linear-gradient(135deg,rgba(0,229,192,.08),transparent)}
+.big-btn.search::before{background:linear-gradient(135deg,rgba(79,140,255,.08),transparent)}
+.big-btn.report::before{background:linear-gradient(135deg,rgba(255,71,87,.08),transparent)}
+.big-btn:hover::before{opacity:1}
 
-  .status-banner{
-    padding:14px 16px;border-radius:var(--radius);
-    display:flex;align-items:center;gap:12px;
-    font-weight:600;font-size:.95rem;
-    margin-bottom:16px;
-  }
-  .status-banner.success{background:#e8f5e9;color:var(--success);border:1px solid #a5d6a7;}
-  .status-banner.error{background:#ffebee;color:var(--danger);border:1px solid #ef9a9a;}
-  .status-banner.info{background:#e3f2fd;color:var(--info);border:1px solid #90caf9;}
-  .status-banner.warn{background:#fff3e0;color:var(--warn);border:1px solid #ffcc80;}
-  .status-banner svg{width:24px;height:24px;flex-shrink:0;}
+.big-btn .bi{
+  width:56px;height:56px;
+  border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  position:relative;z-index:1;
+}
+.big-btn.scan .bi{background:var(--neon-dim);color:var(--neon);box-shadow:0 0 20px rgba(0,229,192,.2)}
+.big-btn.search .bi{background:var(--blue-dim);color:var(--blue);box-shadow:0 0 20px rgba(79,140,255,.2)}
+.big-btn.report .bi{background:var(--red-dim);color:var(--red);box-shadow:0 0 20px rgba(255,71,87,.2)}
+.big-btn .bi svg{width:28px;height:28px}
 
-  .trip-code-box{
-    background:linear-gradient(135deg,#0b6b52,#084d3b);
-    color:#fff;padding:28px 24px;border-radius:var(--radius);
-    text-align:center;margin-bottom:16px;
-    box-shadow:0 10px 30px rgba(11,107,82,.25);
-  }
-  .trip-code-box .label{font-size:.85rem;opacity:.85;margin-bottom:10px;}
-  .trip-code-box .code{
-    font-size:3.2rem;font-weight:900;letter-spacing:12px;
-    font-family:'Segoe UI',Tahoma,sans-serif;
-    word-break:break-all;
-    text-shadow:0 4px 12px rgba(0,0,0,.2);
-  }
-  .trip-code-box .time{font-size:.85rem;opacity:.85;margin-top:12px;}
+.big-btn .bt{flex:1;position:relative;z-index:1}
+.big-btn .bt strong{
+  display:block;
+  font-size:1.08rem;
+  font-weight:800;
+  color:var(--text);
+}
+.big-btn .bt small{
+  display:block;
+  font-size:.8rem;
+  color:var(--muted);
+  margin-top:3px;
+  font-weight:500;
+}
 
-  .live-dot{
-    display:inline-block;width:8px;height:8px;
-    background:#4caf50;border-radius:50%;
-    margin-inline-end:6px;
-    box-shadow:0 0 0 0 rgba(76,175,80,.7);
-    animation:pulse 1.5s infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(76,175,80,.7);}
-    70%{box-shadow:0 0 0 12px rgba(76,175,80,0);}
-    100%{box-shadow:0 0 0 0 rgba(76,175,80,0);}
-  }
+.big-btn .ba{
+  width:32px;height:32px;
+  border-radius:50%;
+  background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  position:relative;z-index:1;
+}
+.big-btn .ba svg{width:14px;height:14px;color:var(--muted)}
 
-  .field{margin-bottom:16px;}
-  .field label{
-    display:block;font-weight:600;font-size:.9rem;
-    margin-bottom:6px;color:var(--text);
-  }
-  .field label .required{color:var(--danger);margin-inline-start:4px;}
-  .field label .optional{color:var(--muted);font-weight:400;font-size:.8rem;}
-  .field input[type="text"],
-  .field input[type="tel"],
-  .field textarea,
-  .field select{
-    width:100%;padding:12px 14px;
-    border:1.5px solid var(--border);border-radius:10px;
-    font-size:.95rem;font-family:inherit;
-    background:#fbfdfc;outline:none;
-    transition:.2s;
-  }
-  .field input.code-input{
-    font-family:monospace;
-    font-size:1.5rem;
-    font-weight:700;
-    letter-spacing:8px;
-    text-align:center;
-    padding:16px;
-  }
-  .field textarea{resize:vertical;min-height:100px;}
-  .field input:focus,.field textarea:focus,.field select:focus{
-    border-color:var(--primary);background:#fff;
-    box-shadow:0 0 0 4px rgba(11,107,82,.12);
-  }
-  .field input.invalid,.field textarea.invalid,.field select.invalid{
-    border-color:var(--danger);background:#fdf3f3;
-  }
-  .field .err{
-    font-size:.8rem;color:var(--danger);
-    margin-top:5px;display:none;
-  }
-  .field .err.show{display:block;}
-  .field .hint{font-size:.78rem;color:var(--muted);margin-top:5px;}
+/* ALERT STRIP */
+.alert-strip{
+  margin-top:24px;
+  padding:14px 16px;
+  background:var(--gold-dim);
+  border:1px solid rgba(255,193,7,.25);
+  border-radius:var(--radius);
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.alert-strip svg{width:20px;height:20px;color:var(--gold);flex-shrink:0;margin-top:2px}
+.alert-strip p{font-size:.82rem;color:#e6c35c;font-weight:600;line-height:1.55}
 
-  .tabs{
-    display:flex;gap:6px;
-    background:#f1f4f6;padding:5px;border-radius:12px;
-    margin-bottom:16px;
-  }
-  .tab{
-    flex:1;text-align:center;
-    padding:11px 12px;border-radius:9px;
-    font-weight:700;font-size:.9rem;
-    color:var(--muted);background:transparent;
-    border:none;transition:.15s;
-  }
-  .tab.active{background:#fff;color:var(--primary);box-shadow:0 2px 6px rgba(0,0,0,.06);}
+/* CARD */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:20px;
+  margin-bottom:14px;
+}
+.card h2{
+  font-size:1.05rem;
+  font-weight:800;
+  margin-bottom:8px;
+  color:var(--text);
+  display:flex;align-items:center;gap:10px;
+}
+.card h2 svg{width:20px;height:20px;color:var(--neon);flex-shrink:0}
+.card p{color:var(--text2);font-size:.88rem;line-height:1.7}
 
-  .trip-item{
-    display:flex;justify-content:space-between;align-items:center;
-    gap:12px;padding:14px 16px;
-    background:#fff;border:1px solid var(--border);
-    border-radius:12px;margin-bottom:10px;
-    transition:.15s;cursor:pointer;
-  }
-  .trip-item:hover{border-color:var(--primary);box-shadow:0 4px 12px rgba(11,107,82,.08);}
-  .trip-item .info{flex:1;min-width:0;}
-  .trip-item .code{
-    font-family:monospace;font-weight:800;
-    font-size:1.3rem;color:var(--primary);
-    letter-spacing:3px;
-  }
-  .trip-item .meta{
-    font-size:.78rem;color:var(--muted);margin-top:3px;
-  }
-  .trip-item .status-pill{
-    font-size:.72rem;font-weight:700;
-    padding:3px 10px;border-radius:999px;
-    white-space:nowrap;
-  }
-  .trip-item .status-pill.active{background:#e3f2fd;color:var(--info);}
-  .trip-item .status-pill.completed{background:#e6f4ef;color:var(--primary);}
-  .trip-item .status-pill.cancelled{background:#fbe9e7;color:#bf360c;}
+/* BACK */
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--neon);font-weight:700;font-size:.88rem;
+  padding:8px 0;margin-bottom:10px;
+  background:none;border:none;
+}
+.back-link svg{width:16px;height:16px}
 
-  .empty-state{
-    text-align:center;padding:40px 20px;color:var(--muted);
-  }
-  .empty-state svg{width:60px;height:60px;opacity:.3;margin-bottom:12px;}
+/* SCANNER */
+#scannerBox{
+  background:#000;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  position:relative;
+  aspect-ratio:1;
+  width:100%;
+  margin-bottom:14px;
+  border:2px solid var(--border);
+}
+#scannerBox video{width:100%;height:100%;object-fit:cover}
+.scan-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.scan-frame{
+  width:68%;aspect-ratio:1;
+  border:2px solid var(--neon);
+  border-radius:20px;
+  box-shadow:0 0 0 9999px rgba(10,14,23,.55),0 0 30px rgba(0,229,192,.3);
+  position:relative;
+}
+.scan-frame::before,.scan-frame::after{
+  content:'';position:absolute;
+  width:28px;height:28px;
+  border-color:var(--gold);border-style:solid;
+}
+.scan-frame::before{top:-2px;right:-2px;border-width:3px 3px 0 0;border-radius:0 10px 0 0}
+.scan-frame::after{bottom:-2px;left:-2px;border-width:0 0 3px 3px;border-radius:0 0 0 10px}
+.scan-hint{
+  position:absolute;bottom:20px;left:0;right:0;
+  text-align:center;color:#fff;font-size:.88rem;font-weight:700;
+  text-shadow:0 2px 10px rgba(0,0,0,.7);
+}
 
-  .btn{
-    width:100%;padding:14px 18px;
-    border:none;border-radius:10px;
-    font-size:1rem;font-weight:700;
-    font-family:inherit;cursor:pointer;
-    transition:.2s;
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    margin-bottom:10px;
-  }
-  .btn:active{transform:scale(.99);}
-  .btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
-  .btn-primary{background:var(--primary);color:#fff;}
-  .btn-primary:hover:not(:disabled){background:var(--primary-dark);}
-  .btn-success{background:var(--success);color:#fff;}
-  .btn-danger{background:var(--danger);color:#fff;}
-  .btn-ghost{background:#f1f4f6;color:var(--text);}
-  .btn-ghost:hover:not(:disabled){background:#e2e8f0;}
-  .btn-outline{
-    background:#fff;color:var(--primary);
-    border:1.5px solid var(--primary);
-  }
-  .btn-outline:hover:not(:disabled){background:var(--primary-light);}
-  .btn-sm{padding:8px 12px;font-size:.82rem;width:auto;margin-bottom:0;}
+/* INFO ROWS */
+.info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+  font-size:.9rem;
+}
+.info-row:last-child{border-bottom:none}
+.info-row .lbl{color:var(--muted);font-weight:600}
+.info-row .val{font-weight:700;text-align:left;word-break:break-word;color:var(--text)}
 
-  .btn .spinner{
-    width:18px;height:18px;
-    border:2.5px solid rgba(255,255,255,.35);
-    border-top-color:#fff;
-    border-radius:50%;
-    animation:spin .7s linear infinite;
-    display:none;
-  }
-  .btn.loading .spinner{display:inline-block;}
-  @keyframes spin{to{transform:rotate(360deg);}}
+/* STATUS */
+.status-banner{
+  padding:14px 16px;border-radius:var(--radius);
+  display:flex;align-items:center;gap:12px;
+  font-weight:700;font-size:.9rem;margin-bottom:14px;
+}
+.status-banner.success{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,213,115,.3)}
+.status-banner.error{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,71,87,.3)}
+.status-banner.info{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,140,255,.3)}
+.status-banner.warn{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,193,7,.3)}
+.status-banner svg{width:22px;height:22px;flex-shrink:0}
 
-  .loader-overlay{
-    position:fixed;inset:0;background:rgba(255,255,255,.85);
-    display:none;align-items:center;justify-content:center;
-    z-index:2000;backdrop-filter:blur(3px);
-  }
-  .loader-overlay.show{display:flex;}
-  .loader-overlay .spinner-big{
-    width:48px;height:48px;
-    border:4px solid rgba(11,107,82,.2);
-    border-top-color:var(--primary);
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-  }
-  .loader-overlay .loader-text{
-    position:absolute;top:calc(50% + 45px);
-    color:var(--primary);font-weight:600;
-    font-size:.95rem;
-    text-align:center;
-    padding:0 20px;
-  }
+/* TRIP CODE */
+.trip-code-hero{
+  background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:36px 24px;
+  text-align:center;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+}
+.trip-code-hero::after{
+  content:'';
+  position:absolute;
+  top:-40%;left:50%;transform:translateX(-50%);
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(0,229,192,.12),transparent 70%);
+  pointer-events:none;
+}
+.trip-code-hero .label{
+  font-size:.82rem;color:var(--muted);font-weight:600;
+  margin-bottom:10px;position:relative;letter-spacing:.05em;
+}
+.trip-code-hero .code{
+  font-size:3.5rem;font-weight:900;letter-spacing:14px;
+  color:var(--neon);line-height:1.1;position:relative;
+  text-shadow:0 0 40px rgba(0,229,192,.4);
+}
+.trip-code-hero .time{
+  font-size:.82rem;color:var(--muted);margin-top:14px;
+  font-weight:500;position:relative;
+}
 
-  .toast-wrap{
-    position:fixed;top:16px;left:50%;transform:translateX(-50%);
-    z-index:3000;display:flex;flex-direction:column;gap:8px;
-    max-width:92vw;pointer-events:none;
-  }
-  .toast{
-    background:#222;color:#fff;
-    padding:12px 20px;border-radius:10px;
-    font-size:.9rem;font-weight:500;
-    box-shadow:0 8px 24px rgba(0,0,0,.25);
-    animation:toast-in .25s ease-out;
-    pointer-events:auto;
-    text-align:center;
-  }
-  .toast.success{background:var(--success);}
-  .toast.error{background:var(--danger);}
-  .toast.info{background:var(--info);}
-  @keyframes toast-in{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:none;}}
+/* LIVE DOT */
+.live-dot{
+  display:inline-block;width:8px;height:8px;
+  background:var(--green);border-radius:50%;
+  margin-inline-end:6px;
+  box-shadow:0 0 0 0 rgba(46,213,115,.5);
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(46,213,115,.5)}
+  70%{box-shadow:0 0 0 10px rgba(46,213,115,0)}
+  100%{box-shadow:0 0 0 0 rgba(46,213,115,0)}
+}
 
-  .modal-bg{
-    position:fixed;inset:0;background:rgba(0,0,0,.55);
-    display:none;align-items:center;justify-content:center;
-    z-index:1500;padding:16px;
-  }
-  .modal-bg.show{display:flex;}
-  .modal{
-    background:#fff;border-radius:14px;
-    width:100%;max-width:440px;overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.3);
-    animation:modal-in .2s ease-out;
-  }
-  @keyframes modal-in{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:none;}}
-  .modal-body{padding:24px;text-align:center;}
-  .modal-body .modal-icon{
-    width:60px;height:60px;margin:0 auto 14px;
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .modal-body .modal-icon.warn{background:#fff3e0;color:var(--warn);}
-  .modal-body .modal-icon.success{background:#e8f5e9;color:var(--success);}
-  .modal-body .modal-icon.error{background:#ffebee;color:var(--danger);}
-  .modal-body .modal-icon.info{background:#e3f2fd;color:var(--info);}
-  .modal-body .modal-icon svg{width:32px;height:32px;}
-  .modal-body h3{font-size:1.1rem;margin-bottom:8px;}
-  .modal-body p{font-size:.92rem;color:var(--muted);white-space:pre-line;}
-  .modal-footer{
-    padding:14px 20px;border-top:1px solid var(--border);
-    display:flex;gap:10px;
-  }
-  .modal-footer .btn{margin-bottom:0;}
+/* FORM */
+.field{margin-bottom:16px}
+.field label{
+  display:block;font-weight:700;font-size:.85rem;
+  margin-bottom:6px;color:var(--text2);
+}
+.field label .required{color:var(--red);margin-inline-start:3px}
+.field label .optional{color:var(--muted);font-weight:500;font-size:.75rem}
+.field input[type="text"],
+.field input[type="tel"],
+.field textarea,
+.field select{
+  width:100%;padding:14px 16px;
+  border:1.5px solid var(--border);border-radius:12px;
+  font-size:.95rem;background:var(--surface2);
+  outline:none;color:var(--text);
+  transition:border-color .2s,box-shadow .2s;
+}
+.field input.code-input{
+  font-size:1.6rem;font-weight:800;
+  letter-spacing:12px;text-align:center;padding:18px;
+}
+.field textarea{resize:vertical;min-height:100px}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:var(--neon);
+  box-shadow:0 0 0 3px rgba(0,229,192,.15);
+}
+.field input.invalid,.field textarea.invalid,.field select.invalid{
+  border-color:var(--red);background:rgba(255,71,87,.08);
+}
+.field .err{font-size:.78rem;color:var(--red);margin-top:5px;display:none;font-weight:600}
+.field .err.show{display:block}
+.field .hint{font-size:.75rem;color:var(--muted);margin-top:5px}
 
-  .back-link{
-    display:inline-flex;align-items:center;gap:6px;
-    color:var(--primary);font-weight:600;font-size:.9rem;
-    padding:8px 0;margin-bottom:10px;
-    background:none;border:none;
-  }
-  .back-link svg{width:18px;height:18px;}
+/* TABS */
+.tabs{
+  display:flex;gap:4px;
+  background:var(--surface);
+  padding:4px;border-radius:14px;
+  margin-bottom:16px;
+  border:1px solid var(--border);
+}
+.tab{
+  flex:1;text-align:center;
+  padding:11px;border-radius:11px;
+  font-weight:800;font-size:.88rem;
+  color:var(--muted);background:transparent;border:none;
+  transition:all .2s;
+}
+.tab.active{
+  background:var(--neon-dim);color:var(--neon);
+}
 
-  /* ===== Trip Summary (hidden for image export) ===== */
-  #tripSummary{
-    background:#fff;padding:24px;
-    border-radius:14px;border:2px dashed var(--primary);
-    text-align:center;
-    font-family:'Tahoma',sans-serif;
-    direction:rtl;
-    width:420px;
-  }
-  #tripSummary .brand{
-    display:flex;align-items:center;gap:8px;justify-content:center;
-    color:var(--primary);font-weight:700;font-size:1.2rem;
-    margin-bottom:16px;
-  }
-  #tripSummary .brand .shield{
-    width:26px;height:26px;background:var(--accent);
-    border-radius:6px 6px 50% 50%;
-    clip-path:polygon(50% 0,100% 20%,100% 70%,50% 100%,0 70%,0 20%);
-  }
-  #tripSummary .title{
-    font-size:1rem;color:var(--muted);margin-bottom:18px;
-  }
-  #tripSummary .code-big{
-    font-family:'Segoe UI',Tahoma,sans-serif;
-    font-size:3rem;font-weight:900;letter-spacing:12px;
-    color:var(--primary);margin-bottom:20px;
-    padding:16px 10px;background:#e6f4ef;border-radius:10px;
-  }
-  #tripSummary .rows{
-    text-align:right;font-size:.92rem;
-    background:#f8fafb;border-radius:10px;padding:14px;
-  }
-  #tripSummary .row{
-    display:flex;justify-content:space-between;
-    padding:8px 0;border-bottom:1px solid #e2e8f0;
-  }
-  #tripSummary .row:last-child{border-bottom:none;}
-  #tripSummary .row .lbl{color:var(--muted);font-weight:600;}
-  #tripSummary .row .val{font-weight:700;font-family:monospace;}
-  #tripSummary .footer{
-    margin-top:16px;font-size:.8rem;color:var(--muted);
-  }
+/* TRIP ITEM */
+.trip-item{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;padding:15px 16px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);margin-bottom:10px;
+  transition:border-color .2s;cursor:pointer;
+}
+.trip-item:hover{border-color:var(--neon)}
+.trip-item .info{flex:1;min-width:0}
+.trip-item .code{
+  font-family:monospace;font-weight:900;
+  font-size:1.3rem;color:var(--neon);letter-spacing:3px;
+}
+.trip-item .meta{font-size:.75rem;color:var(--muted);margin-top:3px;font-weight:500}
+.trip-item .status-pill{
+  font-size:.7rem;font-weight:800;
+  padding:4px 10px;border-radius:999px;white-space:nowrap;
+}
+.trip-item .status-pill.active{background:var(--blue-dim);color:var(--blue)}
+.trip-item .status-pill.completed{background:var(--neon-dim);color:var(--neon)}
+.trip-item .status-pill.cancelled{background:var(--gold-dim);color:var(--gold)}
 
-  @media (max-width:400px){
-    .action-btn{padding:16px;}
-    .action-btn .icon{width:42px;height:42px;}
-    .action-btn .icon svg{width:22px;height:22px;}
-    .trip-code-box .code{font-size:2.5rem;letter-spacing:8px;}
-  }
+/* EMPTY */
+.empty-state{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty-state svg{width:56px;height:56px;opacity:.25;margin-bottom:12px}
+.empty-state p{font-weight:600}
 
-  @media print{
-    body *{visibility:hidden;}
-    #printArea, #printArea *{visibility:visible;}
-    #printArea{position:absolute;top:0;right:0;left:0;}
-    .back-link,.btn,.notice{display:none !important;}
-  }
+/* BUTTONS */
+.btn{
+  width:100%;padding:15px 18px;border:none;
+  border-radius:14px;font-size:.95rem;font-weight:800;
+  font-family:inherit;cursor:pointer;
+  transition:transform .15s,opacity .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-bottom:10px;
+}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-primary{
+  background:var(--neon);color:#0a0e17;
+  box-shadow:var(--neon-glow);
+}
+.btn-danger{background:var(--red);color:#fff}
+.btn-ghost{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.btn-outline{background:transparent;color:var(--neon);border:1.5px solid var(--neon)}
+.btn-sm{padding:6px 10px;font-size:.8rem;width:auto;margin-bottom:0}
+.btn .spinner{
+  width:16px;height:16px;
+  border:2px solid rgba(10,14,23,.25);border-top-color:#0a0e17;
+  border-radius:50%;animation:spin .7s linear infinite;display:none;
+}
+.btn.loading .spinner{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* LOADER */
+.loader-overlay{
+  position:fixed;inset:0;background:rgba(10,14,23,.85);
+  display:none;align-items:center;justify-content:center;
+  z-index:2000;backdrop-filter:blur(8px);
+}
+.loader-overlay.show{display:flex}
+.loader-overlay .spinner-big{
+  width:48px;height:48px;
+  border:3px solid rgba(0,229,192,.15);border-top-color:var(--neon);
+  border-radius:50%;animation:spin .7s linear infinite;
+}
+.loader-overlay .loader-text{
+  position:absolute;top:calc(50% + 48px);
+  color:var(--neon);font-weight:700;font-size:.9rem;
+  text-align:center;padding:0 20px;
+}
+
+/* TOAST */
+.toast-wrap{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:3000;display:flex;flex-direction:column;gap:8px;
+  max-width:90vw;pointer-events:none;
+}
+.toast{
+  background:var(--surface2);color:var(--text);
+  padding:12px 20px;border-radius:12px;
+  font-size:.88rem;font-weight:600;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  border:1px solid var(--border);
+  animation:toastIn .25s ease;pointer-events:auto;text-align:center;
+}
+.toast.success{border-color:rgba(46,213,115,.4);color:var(--green)}
+.toast.error{border-color:rgba(255,71,87,.4);color:var(--red)}
+.toast.info{border-color:rgba(79,140,255,.4);color:var(--blue)}
+@keyframes toastIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+
+/* MODAL */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0,0,0,.65);
+  display:none;align-items:center;justify-content:center;
+  z-index:1500;padding:16px;backdrop-filter:blur(6px);
+}
+.modal-bg.show{display:flex}
+.modal{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:22px;width:100%;max-width:380px;
+  overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.5);
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.modal-body{padding:28px 22px;text-align:center}
+.modal-body .modal-icon{
+  width:60px;height:60px;margin:0 auto 14px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.modal-body .modal-icon.warn{background:var(--gold-dim);color:var(--gold)}
+.modal-body .modal-icon.success{background:var(--green-dim);color:var(--green)}
+.modal-body .modal-icon.error{background:var(--red-dim);color:var(--red)}
+.modal-body .modal-icon.info{background:var(--blue-dim);color:var(--blue)}
+.modal-body .modal-icon svg{width:28px;height:28px}
+.modal-body h3{font-size:1.1rem;margin-bottom:8px;font-weight:800}
+.modal-body p{font-size:.88rem;color:var(--text2);white-space:pre-line;line-height:1.7}
+.modal-footer{padding:0 18px 18px;display:flex;gap:8px}
+.modal-footer .btn{margin-bottom:0}
+
+/* TRIP SUMMARY HIDDEN */
+#tripSummary{
+  background:#fff;padding:28px;border-radius:16px;
+  border:2px dashed #00b4a0;text-align:center;
+  font-family:'Tajawal',sans-serif;direction:rtl;width:420px;
+}
+#tripSummary .brand{display:flex;align-items:center;gap:8px;justify-content:center;color:#00b4a0;font-weight:800;font-size:1.2rem;margin-bottom:14px}
+#tripSummary .brand .shield{width:26px;height:26px;background:#ffc107;border-radius:5px 5px 50% 50%;clip-path:polygon(50% 0,100% 20%,100% 70%,50% 100%,0 70%,0 20%)}
+#tripSummary .title{font-size:.95rem;color:#666;margin-bottom:16px}
+#tripSummary .code-big{font-size:3rem;font-weight:900;letter-spacing:12px;color:#00b4a0;margin-bottom:18px;padding:16px;background:#e6faf7;border-radius:10px}
+#tripSummary .rows{text-align:right;font-size:.9rem;background:#f8fafc;border-radius:10px;padding:14px}
+#tripSummary .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e2e8f0}
+#tripSummary .row:last-child{border-bottom:none}
+#tripSummary .row .lbl{color:#888;font-weight:600}
+#tripSummary .row .val{font-weight:700;font-family:monospace}
+#tripSummary .footer{margin-top:14px;font-size:.78rem;color:#999}
+
+@media(max-width:400px){
+  .trip-code-hero .code{font-size:2.8rem;letter-spacing:10px}
+  .welcome h2{font-size:1.35rem}
+  .big-btn{padding:18px 16px}
+  .big-btn .bi{width:48px;height:48px}
+}
 </style>
 </head>
 <body>
@@ -443,92 +541,98 @@
 </div>
 <div class="toast-wrap" id="toastWrap"></div>
 
-<div class="container">
-  <div class="site-header">
-    <div class="logo"><span class="shield"></span> لزقة أمان</div>
-    <p>خدمة التحقق من السائقين وتوثيق الرحلات</p>
+<div class="header">
+  <div class="header-row">
+    <div class="logo-wrap">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <div class="logo-name">لزقة أمان</div>
+        <div class="logo-sub">تحقق · توثيق · أمان</div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <!-- ============ HOME ============ -->
+<div class="container">
+
+  <!-- HOME -->
   <section class="screen active" id="screen-home">
-    <div class="card">
-      <h2>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        أهلاً بك في لزقة أمان
-      </h2>
-      <p>خدمة تتيح لك التحقق من هوية سائق التوكتوك قبل الرحلة، وتوثيق بيانات الرحلة لأمانك وأمان الآخرين.</p>
+    <div class="welcome">
+      <h2>أهلاً بك في <span>لزقة أمان</span></h2>
+      <p>تحقق من هوية سائق التوكتوك ووثّق رحلتك بضغطة واحدة</p>
     </div>
 
-    <div class="actions-grid">
-      <button class="action-btn primary" id="goScan">
-        <span class="icon">
+    <div class="big-actions">
+      <button class="big-btn scan" id="goScan">
+        <span class="bi">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM21 14v3M14 21h3M21 21h.01"/></svg>
         </span>
-        <span class="txt">
-          <span>امسح QR السائق</span>
+        <span class="bt">
+          <strong>امسح QR السائق</strong>
           <small>تحقق وابدأ الرحلة فورًا</small>
         </span>
+        <span class="ba">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </span>
       </button>
 
-      <button class="action-btn secondary" id="goSearch">
-        <span class="icon">
+      <button class="big-btn search" id="goSearch">
+        <span class="bi">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </span>
-        <span class="txt">
-          <span>الرحلات والبحث</span>
+        <span class="bt">
+          <strong>الرحلات والبحث</strong>
           <small>رحلاتي المحفوظة + بحث بكود</small>
+        </span>
+        <span class="ba">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
         </span>
       </button>
 
-      <button class="action-btn danger" id="goReport">
-        <span class="icon">
+      <button class="big-btn report" id="goReport">
+        <span class="bi">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6"/></svg>
         </span>
-        <span class="txt">
-          <span>تقديم بلاغ</span>
+        <span class="bt">
+          <strong>تقديم بلاغ</strong>
           <small>بلّغ عن مشكلة أو سلوك غير مناسب</small>
+        </span>
+        <span class="ba">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
         </span>
       </button>
     </div>
 
-    <div class="notice">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
-      </span>
-      <div>
-        <strong>تنبيه أمان:</strong> تأكد من التحقق من بيانات السائق قبل بدء الرحلة.
-      </div>
+    <div class="alert-strip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+      <p><strong>تنبيه أمان:</strong> تأكد من التحقق من بيانات السائق قبل بدء الرحلة.</p>
     </div>
   </section>
 
-  <!-- ============ SCANNER ============ -->
+  <!-- SCAN -->
   <section class="screen" id="screen-scan">
     <button class="back-link" data-back="home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      العودة للرئيسية
+      العودة
     </button>
-
     <div class="card">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM21 14v3M14 21h3M21 21h.01"/></svg>
         امسح QR السائق
       </h2>
-      <p>بعد المسح، سيبدأ المتصفح بتتبع موقعك تلقائيًا لبدء الرحلة.</p>
+      <p>بعد المسح، سيبدأ التتبع تلقائيًا لبدء الرحلة.</p>
     </div>
-
     <div id="scannerBox">
       <video id="scanVideo" playsinline muted></video>
       <div class="scan-overlay"><div class="scan-frame"></div></div>
       <div class="scan-hint">ضع الكود داخل الإطار</div>
     </div>
-
-    <button class="btn btn-ghost" id="stopScan">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
-      إيقاف المسح
-    </button>
+    <button class="btn btn-ghost" id="stopScan">إيقاف المسح</button>
   </section>
 
-  <!-- ============ DRIVER VERIFIED ============ -->
+  <!-- DRIVER -->
   <section class="screen" id="screen-driver">
     <div id="driverBanner"></div>
     <div class="card">
@@ -541,14 +645,13 @@
     <div id="driverActions"></div>
   </section>
 
-  <!-- ============ ACTIVE TRIP ============ -->
+  <!-- TRIP -->
   <section class="screen" id="screen-trip">
-    <div class="trip-code-box">
+    <div class="trip-code-hero">
       <div class="label">كود الرحلة</div>
       <div class="code" id="activeTripCode">—</div>
       <div class="time" id="activeTripTime">—</div>
     </div>
-
     <div class="card" id="tripDriverCard">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg>
@@ -556,7 +659,6 @@
       </h2>
       <div id="tripDriverInfo"></div>
     </div>
-
     <div class="card">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
@@ -564,38 +666,23 @@
       </h2>
       <div id="trackingInfo"></div>
     </div>
-
     <div id="tripBanner"></div>
-
-    <button class="btn btn-danger" id="endTripBtn">
-      <span class="spinner"></span>
-      إنهاء الرحلة
-    </button>
-
-    <button class="btn btn-outline" id="saveTripImageBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>
-      طباعة صورة الرحلة
-    </button>
-
+    <button class="btn btn-danger" id="endTripBtn"><span class="spinner"></span> إنهاء الرحلة</button>
+    <button class="btn btn-outline" id="saveTripImageBtn">طباعة صورة الرحلة</button>
     <button class="btn btn-ghost" id="backHomeFromTrip">العودة للرئيسية</button>
   </section>
 
-  <!-- ============ TRIPS / SEARCH ============ -->
+  <!-- SEARCH -->
   <section class="screen" id="screen-search">
     <button class="back-link" data-back="home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      العودة للرئيسية
+      العودة
     </button>
-
     <div class="tabs">
       <button class="tab active" data-tab="my">رحلاتي</button>
       <button class="tab" data-tab="find">بحث بكود</button>
     </div>
-
-    <div id="tab-my">
-      <div id="myTripsList"></div>
-    </div>
-
+    <div id="tab-my"><div id="myTripsList"></div></div>
     <div id="tab-find" style="display:none;">
       <div class="card">
         <div class="field">
@@ -604,22 +691,18 @@
           <div class="hint" style="text-align:center;">أدخل 4 أرقام</div>
           <div class="err" id="err-searchTripCode"></div>
         </div>
-        <button class="btn btn-primary" id="searchTripBtn">
-          <span class="spinner"></span>
-          <span class="btn-text">بحث</span>
-        </button>
+        <button class="btn btn-primary" id="searchTripBtn"><span class="spinner"></span><span class="btn-text">بحث</span></button>
       </div>
       <div id="searchResult"></div>
     </div>
   </section>
 
-  <!-- ============ REPORT ============ -->
+  <!-- REPORT -->
   <section class="screen" id="screen-report">
     <button class="back-link" data-back="home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      العودة للرئيسية
+      العودة
     </button>
-
     <div class="card">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6"/></svg>
@@ -627,7 +710,6 @@
       </h2>
       <p>لأمانك، لا يمكن تقديم بلاغ إلا بربطه برحلة حقيقية.</p>
     </div>
-
     <form id="reportForm" class="card" novalidate>
       <div class="field">
         <label for="repTripCode">كود الرحلة <span class="required">*</span></label>
@@ -635,7 +717,6 @@
         <div class="hint" style="text-align:center;">أدخل كود الرحلة (4 أرقام)</div>
         <div class="err" id="err-repTripCode"></div>
       </div>
-
       <div class="field">
         <label for="repCategory">نوع البلاغ <span class="required">*</span></label>
         <select id="repCategory">
@@ -648,28 +729,21 @@
         </select>
         <div class="err" id="err-repCategory"></div>
       </div>
-
       <div class="field">
         <label for="repDescription">وصف البلاغ <span class="required">*</span></label>
         <textarea id="repDescription" placeholder="اشرح المشكلة بتفصيل كافٍ..." maxlength="1000"></textarea>
         <div class="err" id="err-repDescription"></div>
       </div>
-
       <div class="field">
         <label for="repPhone">رقم هاتف للتواصل <span class="optional">(اختياري)</span></label>
         <input type="tel" id="repPhone" placeholder="01xxxxxxxxx" inputmode="numeric" autocomplete="tel" />
         <div class="err" id="err-repPhone"></div>
       </div>
-
-      <button type="submit" class="btn btn-primary" id="submitReportBtn">
-        <span class="spinner"></span>
-        <span class="btn-text">إرسال البلاغ</span>
-      </button>
+      <button type="submit" class="btn btn-primary" id="submitReportBtn"><span class="spinner"></span><span class="btn-text">إرسال البلاغ</span></button>
     </form>
   </section>
 </div>
 
-<!-- Modal -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <div class="modal-body" id="modalBody"></div>
@@ -677,26 +751,15 @@
   </div>
 </div>
 
-<!-- Hidden trip summary for image export -->
-<div style="position:fixed; left:-9999px; top:0;">
-  <div id="tripSummary"></div>
-</div>
+<div style="position:fixed;left:-9999px;top:0"><div id="tripSummary"></div></div>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script>
-
-<!-- QR Scanner -->
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-
-<!-- html2canvas -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <script>
-/* ============================================================
-   1) Firebase
-   ============================================================ */
+
 const firebaseConfig = {
   apiKey: "AIzaSyBjpbZHdumCpG-klvaJAkNBfdoghlG-cTU",
   authDomain: "safety-sticker-30a65.firebaseapp.com",
@@ -706,18 +769,11 @@ const firebaseConfig = {
   appId: "1:202785399838:web:8b6115e9724698aba99c0f",
   measurementId: "G-1YWMRYJYM0"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
 const RECAPTCHA_SITE_KEY = "";
-if (RECAPTCHA_SITE_KEY) {
-  try { firebase.appCheck().activate(RECAPTCHA_SITE_KEY, true); } catch(e){ console.warn(e); }
-}
+if (RECAPTCHA_SITE_KEY) { try { firebase.appCheck().activate(RECAPTCHA_SITE_KEY, true); } catch(e){} }
 
-/* ============================================================
-   2) أدوات مساعدة
-   ============================================================ */
 const $ = (id) => document.getElementById(id);
 
 function toast(msg, type="info"){
@@ -725,1082 +781,463 @@ function toast(msg, type="info"){
   t.className = "toast " + type;
   t.textContent = msg;
   $("toastWrap").appendChild(t);
-  setTimeout(()=>{ t.style.opacity = "0"; t.style.transition = "opacity .3s"; }, 2800);
+  setTimeout(()=>{ t.style.opacity="0"; t.style.transition="opacity .3s"; }, 2800);
   setTimeout(()=> t.remove(), 3300);
 }
-
-function showLoader(v, text=""){
-  $("globalLoader").classList.toggle("show", v);
-  $("loaderText").textContent = text || "";
-}
-
-function escapeHtml(s){
-  if(s === null || s === undefined) return "";
-  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-
+function showLoader(v, text=""){ $("globalLoader").classList.toggle("show", v); $("loaderText").textContent = text || ""; }
+function escapeHtml(s){ if(s==null||s===undefined) return ""; return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function fmtDate(ts){
   if(!ts) return "—";
   let d;
-  if(ts.toDate) d = ts.toDate();
-  else if(ts instanceof Date) d = ts;
-  else if(typeof ts === "number") d = new Date(ts);
-  else return "—";
+  if(ts.toDate) d=ts.toDate(); else if(ts instanceof Date) d=ts; else if(typeof ts==="number") d=new Date(ts); else return "—";
   return d.toLocaleString("ar-EG",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
 }
-
 function statusLabel(s){
-  const map = {
-    active:"جارية", completed:"مكتملة", cancelled:"ملغاة",
-    enabled:"مفعّل", disabled:"موقوف",
-    new:"جديد", under_review:"قيد المراجعة", resolved:"تم الحل"
-  };
-  return map[s] || s || "—";
+  const map={active:"جارية",completed:"مكتملة",cancelled:"ملغاة",enabled:"مفعّل",disabled:"موقوف",new:"جديد",under_review:"قيد المراجعة",resolved:"تم الحل"};
+  return map[s]||s||"—";
 }
 
-/* ============================================================
-   3) التخزين المحلي
-   ============================================================ */
-const LOCAL_KEY = "safety_sticker_my_trips_v2";
+const LOCAL_KEY="safety_sticker_my_trips_v2";
+function getMyTrips(){ try{ const raw=localStorage.getItem(LOCAL_KEY); if(!raw) return []; const arr=JSON.parse(raw); return Array.isArray(arr)?arr:[]; }catch(_){ return []; } }
+function saveMyTrip(trip){ try{ const list=getMyTrips().filter(t=>t.tripCode!==trip.tripCode); list.unshift(trip); localStorage.setItem(LOCAL_KEY,JSON.stringify(list.slice(0,50))); }catch(e){} }
+function updateMyTrip(tripCode, updates){ try{ const list=getMyTrips(); const idx=list.findIndex(t=>t.tripCode===tripCode); if(idx===-1) return; list[idx]={...list[idx],...updates}; localStorage.setItem(LOCAL_KEY,JSON.stringify(list)); }catch(e){} }
+function removeMyTrip(tripCode){ try{ localStorage.setItem(LOCAL_KEY,JSON.stringify(getMyTrips().filter(t=>t.tripCode!==tripCode))); }catch(e){} }
 
-function getMyTrips(){
-  try {
-    const raw = localStorage.getItem(LOCAL_KEY);
-    if(!raw) return [];
-    const arr = JSON.parse(raw);
-    return Array.isArray(arr) ? arr : [];
-  } catch(_) { return []; }
-}
-
-function saveMyTrip(trip){
-  try {
-    const list = getMyTrips();
-    const filtered = list.filter(t => t.tripCode !== trip.tripCode);
-    filtered.unshift(trip);
-    const trimmed = filtered.slice(0, 50);
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(trimmed));
-  } catch(e){ console.warn("saveMyTrip failed", e); }
-}
-
-function updateMyTrip(tripCode, updates){
-  try {
-    const list = getMyTrips();
-    const idx = list.findIndex(t => t.tripCode === tripCode);
-    if(idx === -1) return;
-    list[idx] = { ...list[idx], ...updates };
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
-  } catch(e){ console.warn("updateMyTrip failed", e); }
-}
-
-function removeMyTrip(tripCode){
-  try {
-    const list = getMyTrips().filter(t => t.tripCode !== tripCode);
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
-  } catch(e){ console.warn("removeMyTrip failed", e); }
-}
-
-/* ============================================================
-   4) التنقل بين الشاشات
-   ============================================================ */
 function showScreen(name){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  const target = $("screen-" + name);
+  const target=$("screen-"+name);
   if(target) target.classList.add("active");
   window.scrollTo({top:0,behavior:"smooth"});
-  if(name !== "scan") stopScanner();
-  if(name === "search") renderMyTrips();
+  if(name!=="scan") stopScanner();
+  if(name==="search") renderMyTrips();
 }
+document.querySelectorAll("[data-back]").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.back)));
 
-document.querySelectorAll("[data-back]").forEach(b=>{
-  b.addEventListener("click", ()=>showScreen(b.dataset.back));
-});
-
-/* ============================================================
-   5) Modal
-   ============================================================ */
-function openModal({icon="warn", title="", text="", buttons=[]}){
-  $("modalBody").innerHTML = `
-    <div class="modal-icon ${icon}">${defaultIcon(icon)}</div>
-    <h3>${escapeHtml(title)}</h3>
-    <p>${escapeHtml(text)}</p>
-  `;
-  $("modalFooter").innerHTML = "";
+function openModal({icon="warn",title="",text="",buttons=[]}){
+  $("modalBody").innerHTML=`<div class="modal-icon ${icon}">${defaultIcon(icon)}</div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p>`;
+  $("modalFooter").innerHTML="";
   buttons.forEach(b=>{
-    const btn = document.createElement("button");
-    btn.className = "btn " + (b.className || "btn-ghost");
-    btn.textContent = b.label;
-    btn.addEventListener("click", ()=>{ closeModal(); if(b.onClick) b.onClick(); });
+    const btn=document.createElement("button");
+    btn.className="btn "+(b.className||"btn-ghost");
+    btn.textContent=b.label;
+    btn.addEventListener("click",()=>{ closeModal(); if(b.onClick) b.onClick(); });
     $("modalFooter").appendChild(btn);
   });
   $("modalBg").classList.add("show");
 }
 function closeModal(){ $("modalBg").classList.remove("show"); }
-$("modalBg").addEventListener("click", e=>{ if(e.target === $("modalBg")) closeModal(); });
-
+$("modalBg").addEventListener("click",e=>{ if(e.target===$("modalBg")) closeModal(); });
 function defaultIcon(type){
-  const icons = {
+  const icons={
     warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>',
     success:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>',
     error:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>',
     info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>'
   };
-  return icons[type] || icons.warn;
+  return icons[type]||icons.warn;
 }
 
-/* ============================================================
-   6) الحالة العامة
-   ============================================================ */
-let scanState = { scanner: null, scanning: false, busy: false };
-let currentDriver = null;
-let currentTrip = null;
-let activeTripId = null;
+let scanState={scanner:null,scanning:false,busy:false};
+let currentDriver=null, currentTrip=null, activeTripId=null;
+let geoWatchId=null, locationPath=[], lastPushedLocation=null, lastPushTimestamp=0, tripDocRef=null;
+const PUSH_INTERVAL_MS=30000, MIN_DISTANCE_METERS=20, MAX_POINTS=2000;
 
-let geoWatchId = null;
-let locationPath = [];
-let lastPushedLocation = null;
-let lastPushTimestamp = 0;
-let tripDocRef = null;
-
-const PUSH_INTERVAL_MS = 30000;
-const MIN_DISTANCE_METERS = 20;
-const MAX_POINTS = 2000;
-
-/* ============================================================
-   7) QR Scanning
-   ============================================================ */
-$("goScan").addEventListener("click", ()=>{
-  showScreen("scan");
-  startScanner();
-});
+$("goScan").addEventListener("click",()=>{ showScreen("scan"); startScanner(); });
 
 async function startScanner(){
   if(scanState.scanning) return;
-  try {
-    const scanner = new Html5Qrcode("scannerBox", { verbose:false });
-    scanState.scanner = scanner;
-
-    await scanner.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: { width: 250, height: 250 } },
-      async (decodedText) => {
-        if(scanState.busy) return;
-        scanState.busy = true;
-        await handleScannedText(decodedText);
-        setTimeout(()=>{ scanState.busy = false; }, 2000);
-      },
-      () => {}
+  try{
+    const scanner=new Html5Qrcode("scannerBox",{verbose:false});
+    scanState.scanner=scanner;
+    await scanner.start({facingMode:"environment"},{fps:10,qrbox:{width:250,height:250}},
+      async(decodedText)=>{ if(scanState.busy) return; scanState.busy=true; await handleScannedText(decodedText); setTimeout(()=>{scanState.busy=false},2000); },
+      ()=>{}
     );
-    scanState.scanning = true;
-  } catch(err){
-    console.error(err);
-    scanState.scanning = false;
-    showScreen("home");
-    openModal({
-      icon:"error",
-      title:"تعذّر تشغيل الكاميرا",
-      text:"تأكد من منح الإذن للمتصفح باستخدام الكاميرا، وأن الموقع يعمل عبر HTTPS.",
-      buttons:[{label:"حسنًا", className:"btn-primary"}]
-    });
+    scanState.scanning=true;
+  }catch(err){
+    scanState.scanning=false; showScreen("home");
+    openModal({icon:"error",title:"تعذّر تشغيل الكاميرا",text:"تأكد من منح الإذن للمتصفح باستخدام الكاميرا، وأن الموقع يعمل عبر HTTPS.",buttons:[{label:"حسنًا",className:"btn-primary"}]});
   }
 }
-
 async function stopScanner(){
-  if(!scanState.scanner || !scanState.scanning) return;
-  try {
-    await scanState.scanner.stop();
-    scanState.scanner.clear();
-  } catch(_){}
-  scanState.scanner = null;
-  scanState.scanning = false;
+  if(!scanState.scanner||!scanState.scanning) return;
+  try{ await scanState.scanner.stop(); scanState.scanner.clear(); }catch(_){}
+  scanState.scanner=null; scanState.scanning=false;
 }
+$("stopScan").addEventListener("click",()=>{ stopScanner(); showScreen("home"); });
 
-$("stopScan").addEventListener("click", ()=>{
-  stopScanner();
-  showScreen("home");
-});
-
-/* ✅ يدعم D-1234 و DRV-XXXX */
 function extractDriverCode(text){
   if(!text) return null;
-  const trimmed = text.trim();
-
-  try {
-    const url = new URL(trimmed);
-    const d = url.searchParams.get("driver") || url.searchParams.get("d");
-    if(d) return d;
-  } catch(_){}
-
-  const m1 = trimmed.match(/(D-\d{4,5})/i);
-  if(m1) return m1[1].toUpperCase();
-
-  const m2 = trimmed.match(/(DRV-[A-Z0-9]+-[A-Z0-9]+)/i);
-  if(m2) return m2[1];
-
+  const trimmed=text.trim();
+  try{ const url=new URL(trimmed); const d=url.searchParams.get("driver")||url.searchParams.get("d"); if(d) return d; }catch(_){}
+  const m1=trimmed.match(/(D-\d{4,5})/i); if(m1) return m1[1].toUpperCase();
+  const m2=trimmed.match(/(DRV-[A-Z0-9]+-[A-Z0-9]+)/i); if(m2) return m2[1];
   return null;
 }
 
 async function handleScannedText(text){
-  const code = extractDriverCode(text);
-  if(!code){
-    toast("هذا الكود غير صالح لـ لزقة أمان.", "error");
-    return;
-  }
-
+  const code=extractDriverCode(text);
+  if(!code){ toast("هذا الكود غير صالح لـ لزقة أمان.","error"); return; }
   await stopScanner();
-  showLoader(true, "جارٍ التحقق من السائق...");
-  try {
-    const snap = await db.collection("drivers")
-      .where("driverCode", "==", code)
-      .limit(1)
-      .get();
-
+  showLoader(true,"جارٍ التحقق من السائق...");
+  try{
+    const snap=await db.collection("drivers").where("driverCode","==",code).limit(1).get();
     if(snap.empty){
-      // ✅ لو الكود مش موجود في السائقين المعتمدين
-      openModal({
-        icon:"warn",
-        title:"السائق غير معتمد",
-        text: "هذا السائق لم يتم اعتماده بعد من قِبل الإدارة.\nأو أن الكود غير صحيح.\n\nلا يمكن بدء الرحلة حاليًا.",
-        buttons:[{label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}]
-      });
+      openModal({icon:"warn",title:"السائق غير معتمد",text:"هذا السائق لم يتم اعتماده بعد من قِبل الإدارة.\nأو أن الكود غير صحيح.\n\nلا يمكن بدء الرحلة حاليًا.",buttons:[{label:"حسنًا",className:"btn-primary",onClick:()=>showScreen("home")}]});
       return;
     }
-
-    const doc = snap.docs[0];
-    const data = doc.data();
-
-    if((data.status || "enabled") !== "enabled"){
-      openModal({
-        icon:"error",
-        title:"السائق غير مفعّل",
-        text:"هذا السائق موقوف حاليًا. لا يمكن بدء الرحلة.",
-        buttons:[{label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}]
-      });
+    const doc=snap.docs[0]; const data=doc.data();
+    if((data.status||"enabled")!=="enabled"){
+      openModal({icon:"error",title:"السائق غير مفعّل",text:"هذا السائق موقوف حاليًا. لا يمكن بدء الرحلة.",buttons:[{label:"حسنًا",className:"btn-primary",onClick:()=>showScreen("home")}]});
       return;
     }
-
-    currentDriver = {
-      id: doc.id,
-      fullName: data.fullName || "—",
-      phone: data.phone || "—",
-      driverCode: data.driverCode || code,
-      status: data.status || "enabled"
-    };
-
-    renderDriverScreen();
-    showScreen("driver");
-    setTimeout(()=> autoStartTrip(), 1500);
-
-  } catch(err){
-    console.error(err);
-    let msg = "تعذّر الاتصال بالخادم.";
-    if(err.code === "permission-denied") msg = "لا توجد صلاحية للوصول إلى بيانات السائقين.";
-    openModal({
-      icon:"error",
-      title:"خطأ في الاتصال",
-      text: msg,
-      buttons:[{label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}]
-    });
-  } finally {
-    showLoader(false);
-  }
+    currentDriver={id:doc.id,fullName:data.fullName||"—",phone:data.phone||"—",driverCode:data.driverCode||code,status:data.status||"enabled"};
+    renderDriverScreen(); showScreen("driver"); setTimeout(()=>autoStartTrip(),1500);
+  }catch(err){
+    let msg="تعذّر الاتصال بالخادم.";
+    if(err.code==="permission-denied") msg="لا توجد صلاحية للوصول إلى بيانات السائقين.";
+    openModal({icon:"error",title:"خطأ في الاتصال",text:msg,buttons:[{label:"حسنًا",className:"btn-primary",onClick:()=>showScreen("home")}]});
+  }finally{ showLoader(false); }
 }
 
-/* ✅ قراءة الرابط عند فتح الصفحة */
 async function autoLoadDriverFromUrl(){
-  const params = new URLSearchParams(window.location.search);
-
-  // ✅ حالة 1: QR مؤقت — لسه متوافقش عليه
-  const pendingCode = params.get("pendingDriver");
+  const params=new URLSearchParams(window.location.search);
+  const pendingCode=params.get("pendingDriver");
   if(pendingCode){
-    window.history.replaceState({}, "", window.location.pathname);
-    openModal({
-      icon:"warn",
-      title:"طلب التسجيل قيد المراجعة",
-      text: "هذا السائق لم يتم اعتماده بعد من قِبل الإدارة.\nلا يمكن بدء الرحلة حاليًا.\n\nيرجى المحاولة لاحقًا بعد مراجعة الطلب (قد تستغرق المراجعة حتى 24 ساعة).",
-      buttons:[
-        {label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}
-      ]
-    });
+    window.history.replaceState({},"",window.location.pathname);
+    openModal({icon:"warn",title:"طلب التسجيل قيد المراجعة",text:"هذا السائق لم يتم اعتماده بعد من قِبل الإدارة.\nلا يمكن بدء الرحلة حاليًا.\n\nيرجى المحاولة لاحقًا بعد مراجعة الطلب (قد تستغرق المراجعة حتى 24 ساعة).",buttons:[{label:"حسنًا",className:"btn-primary",onClick:()=>showScreen("home")}]});
     return;
   }
-
-  // ✅ حالة 2: QR حقيقي — بعد الموافقة
-  const code = params.get("driver") || params.get("d");
+  const code=params.get("driver")||params.get("d");
   if(!code) return;
-
-  if(!/^D-\d{4,5}$/i.test(code) && !/^DRV-[A-Z0-9]+-[A-Z0-9]+$/i.test(code)) return;
-
-  window.history.replaceState({}, "", window.location.pathname);
-
-  showLoader(true, "جارٍ التحقق من السائق...");
-  try {
-    const snap = await db.collection("drivers")
-      .where("driverCode", "==", code)
-      .limit(1)
-      .get();
-
-    if(snap.empty){
-      openModal({
-        icon:"warn",
-        title:"السائق غير معتمد",
-        text: "الرابط الذي فتحته لا يشير إلى سائق معتمد.",
-        buttons:[{label:"حسنًا", className:"btn-primary"}]
-      });
-      return;
-    }
-
-    const doc = snap.docs[0];
-    const data = doc.data();
-    if((data.status || "enabled") !== "enabled"){
-      openModal({
-        icon:"error",
-        title:"السائق غير مفعّل",
-        text:"هذا السائق موقوف حاليًا.",
-        buttons:[{label:"حسنًا", className:"btn-primary"}]
-      });
-      return;
-    }
-
-    currentDriver = {
-      id: doc.id,
-      fullName: data.fullName || "—",
-      phone: data.phone || "—",
-      driverCode: data.driverCode || code,
-      status: data.status || "enabled"
-    };
-
-    renderDriverScreen();
-    showScreen("driver");
-    setTimeout(()=> autoStartTrip(), 1500);
-
-  } catch(err){
-    console.error(err);
-    toast("تعذّر التحقق من السائق.", "error");
-  } finally {
-    showLoader(false);
-  }
+  if(!/^D-\d{4,5}$/i.test(code)&&!/^DRV-[A-Z0-9]+-[A-Z0-9]+$/i.test(code)) return;
+  window.history.replaceState({},"",window.location.pathname);
+  showLoader(true,"جارٍ التحقق من السائق...");
+  try{
+    const snap=await db.collection("drivers").where("driverCode","==",code).limit(1).get();
+    if(snap.empty){ openModal({icon:"warn",title:"السائق غير معتمد",text:"الرابط الذي فتحته لا يشير إلى سائق معتمد.",buttons:[{label:"حسنًا",className:"btn-primary"}]}); return; }
+    const doc=snap.docs[0]; const data=doc.data();
+    if((data.status||"enabled")!=="enabled"){ openModal({icon:"error",title:"السائق غير مفعّل",text:"هذا السائق موقوف حاليًا.",buttons:[{label:"حسنًا",className:"btn-primary"}]}); return; }
+    currentDriver={id:doc.id,fullName:data.fullName||"—",phone:data.phone||"—",driverCode:data.driverCode||code,status:data.status||"enabled"};
+    renderDriverScreen(); showScreen("driver"); setTimeout(()=>autoStartTrip(),1500);
+  }catch(err){ toast("تعذّر التحقق من السائق.","error"); }
+  finally{ showLoader(false); }
 }
 
-/* ============================================================
-   8) Driver Screen
-   ============================================================ */
 function renderDriverScreen(){
-  const d = currentDriver;
-  if(!d) return;
-
-  $("driverBanner").innerHTML = `
-    <div class="status-banner success">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-      تم التحقق من السائق — جارٍ بدء الرحلة تلقائيًا...
-    </div>
-  `;
-
-  $("driverInfo").innerHTML = `
+  const d=currentDriver; if(!d) return;
+  $("driverBanner").innerHTML=`<div class="status-banner success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>تم التحقق من السائق — جارٍ بدء الرحلة تلقائيًا...</div>`;
+  $("driverInfo").innerHTML=`
     <div class="info-row"><span class="lbl">الاسم:</span><span class="val">${escapeHtml(d.fullName)}</span></div>
     <div class="info-row"><span class="lbl">رقم الهاتف:</span><span class="val"><a href="tel:${escapeHtml(d.phone)}">${escapeHtml(d.phone)}</a></span></div>
-    <div class="info-row"><span class="lbl">كود السائق:</span><span class="val" style="font-family:monospace;">${escapeHtml(d.driverCode)}</span></div>
-    <div class="info-row"><span class="lbl">الحالة:</span><span class="val" style="color:#2e7d32;">مفعّل ✅</span></div>
-  `;
-
-  $("driverActions").innerHTML = `
-    <button class="btn btn-ghost" id="cancelAutoStart">إلغاء</button>
-  `;
-  $("cancelAutoStart").addEventListener("click", ()=>{
-    currentDriver = null;
-    showScreen("home");
-  });
+    <div class="info-row"><span class="lbl">كود السائق:</span><span class="val" style="font-family:monospace">${escapeHtml(d.driverCode)}</span></div>
+    <div class="info-row"><span class="lbl">الحالة:</span><span class="val" style="color:var(--green)">مفعّل ✅</span></div>`;
+  $("driverActions").innerHTML=`<button class="btn btn-ghost" id="cancelAutoStart">إلغاء</button>`;
+  $("cancelAutoStart").addEventListener("click",()=>{ currentDriver=null; showScreen("home"); });
 }
 
-/* ============================================================
-   9) Geolocation
-   ============================================================ */
 function getCurrentPositionOnce(){
-  return new Promise((resolve, reject)=>{
-    if(!navigator.geolocation){
-      reject(new Error("Geolocation not supported"));
-      return;
-    }
+  return new Promise((resolve,reject)=>{
+    if(!navigator.geolocation){ reject(new Error("Geolocation not supported")); return; }
     navigator.geolocation.getCurrentPosition(
-      pos => resolve({
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-        accuracy: pos.coords.accuracy || 0
-      }),
-      err => reject(err),
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      pos=>resolve({lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy||0}),
+      err=>reject(err),
+      {enableHighAccuracy:true,timeout:15000,maximumAge:0}
     );
   });
 }
-
-function distanceMeters(a, b){
-  if(!a || !b) return Infinity;
-  const R = 6371000;
-  const toRad = (x) => x * Math.PI / 180;
-  const dLat = toRad(b.lat - a.lat);
-  const dLng = toRad(b.lng - a.lng);
-  const lat1 = toRad(a.lat);
-  const lat2 = toRad(b.lat);
-  const x = Math.sin(dLat/2)**2 + Math.sin(dLng/2)**2 * Math.cos(lat1) * Math.cos(lat2);
-  return 2 * R * Math.asin(Math.sqrt(x));
+function distanceMeters(a,b){
+  if(!a||!b) return Infinity;
+  const R=6371000, toRad=x=>x*Math.PI/180;
+  const dLat=toRad(b.lat-a.lat), dLng=toRad(b.lng-a.lng);
+  const lat1=toRad(a.lat), lat2=toRad(b.lat);
+  const x=Math.sin(dLat/2)**2+Math.sin(dLng/2)**2*Math.cos(lat1)*Math.cos(lat2);
+  return 2*R*Math.asin(Math.sqrt(x));
 }
-
-/* ============================================================
-   10) Start Trip — كود 4 أرقام
-   ============================================================ */
-function generateRandomFourDigits(){
-  return String(Math.floor(1000 + Math.random() * 9000));
-}
-
+function generateRandomFourDigits(){ return String(Math.floor(1000+Math.random()*9000)); }
 async function generateUniqueTripCode(){
-  for(let i = 0; i < 10; i++){
-    const code = generateRandomFourDigits();
-    const exists = await db.collection("trips")
-      .where("tripCode", "==", code)
-      .limit(1)
-      .get();
+  for(let i=0;i<10;i++){
+    const code=generateRandomFourDigits();
+    const exists=await db.collection("trips").where("tripCode","==",code).limit(1).get();
     if(exists.empty) return code;
   }
-  return String(Math.floor(10000 + Math.random() * 90000));
+  return String(Math.floor(10000+Math.random()*90000));
 }
 
 async function autoStartTrip(){
   if(!currentDriver) return;
-
-  try {
-    showLoader(true, "جارٍ تحديد موقعك...");
+  try{
+    showLoader(true,"جارٍ تحديد موقعك...");
     let startLoc;
-    try {
-      startLoc = await getCurrentPositionOnce();
-    } catch(err){
+    try{ startLoc=await getCurrentPositionOnce(); }
+    catch(err){
       showLoader(false);
-      let msg = "تعذّر الحصول على موقعك. يرجى السماح بالوصول للموقع.";
-      if(err && err.code === 1) msg = "تم رفض إذن الموقع. لا يمكن بدء الرحلة بدون تحديد الموقع.";
-      if(err && err.code === 2) msg = "خدمة الموقع غير متاحة حاليًا.";
-      if(err && err.code === 3) msg = "انتهت مهلة تحديد الموقع.";
-      openModal({
-        icon:"error",
-        title:"لم نتمكن من بدء الرحلة",
-        text: msg,
-        buttons:[
-          {label:"المحاولة مرة أخرى", className:"btn-primary", onClick: autoStartTrip},
-          {label:"العودة للرئيسية", className:"btn-ghost", onClick:()=>{
-            currentDriver = null;
-            showScreen("home");
-          }}
-        ]
-      });
+      let msg="تعذّر الحصول على موقعك. يرجى السماح بالوصول للموقع.";
+      if(err&&err.code===1) msg="تم رفض إذن الموقع. لا يمكن بدء الرحلة بدون تحديد الموقع.";
+      if(err&&err.code===2) msg="خدمة الموقع غير متاحة حاليًا.";
+      if(err&&err.code===3) msg="انتهت مهلة تحديد الموقع.";
+      openModal({icon:"error",title:"لم نتمكن من بدء الرحلة",text:msg,buttons:[
+        {label:"المحاولة مرة أخرى",className:"btn-primary",onClick:autoStartTrip},
+        {label:"العودة للرئيسية",className:"btn-ghost",onClick:()=>{currentDriver=null;showScreen("home");}}
+      ]});
       return;
     }
-
-    showLoader(true, "جارٍ تسجيل الرحلة...");
-    const now = firebase.firestore.FieldValue.serverTimestamp();
-    const tripCode = await generateUniqueTripCode();
-
-    const startPoint = {
-      lat: startLoc.lat,
-      lng: startLoc.lng,
-      accuracy: startLoc.accuracy,
-      capturedAt: now
-    };
-
-    const initialPath = [
-      { lat: startLoc.lat, lng: startLoc.lng, accuracy: startLoc.accuracy }
-    ];
-
-    const docRef = await db.collection("trips").add({
-      tripCode,
-      driverId: currentDriver.id,
-      driverCode: currentDriver.driverCode || null,
-      driverName: currentDriver.fullName || null,
-      driverPhone: currentDriver.phone || null,
-      status: "active",
-      startTime: now,
-      endTime: null,
-      createdAt: now,
-      startLocation: startPoint,
-      endLocation: null,
-      lastLocation: startPoint,
-      locationPath: initialPath
+    showLoader(true,"جارٍ تسجيل الرحلة...");
+    const now=firebase.firestore.FieldValue.serverTimestamp();
+    const tripCode=await generateUniqueTripCode();
+    const startPoint={lat:startLoc.lat,lng:startLoc.lng,accuracy:startLoc.accuracy,capturedAt:now};
+    const initialPath=[{lat:startLoc.lat,lng:startLoc.lng,accuracy:startLoc.accuracy}];
+    const docRef=await db.collection("trips").add({
+      tripCode,driverId:currentDriver.id,driverCode:currentDriver.driverCode||null,
+      driverName:currentDriver.fullName||null,driverPhone:currentDriver.phone||null,
+      status:"active",startTime:now,endTime:null,createdAt:now,
+      startLocation:startPoint,endLocation:null,lastLocation:startPoint,locationPath:initialPath
     });
-
-    tripDocRef = docRef;
-    activeTripId = docRef.id;
-    locationPath = initialPath.slice();
-    lastPushedLocation = { lat: startLoc.lat, lng: startLoc.lng };
-    lastPushTimestamp = Date.now();
-
-    currentTrip = {
-      id: docRef.id,
-      tripCode,
-      driverId: currentDriver.id,
-      driverCode: currentDriver.driverCode,
-      driverName: currentDriver.fullName,
-      driverPhone: currentDriver.phone,
-      status: "active",
-      startTime: new Date()
-    };
-
-    saveMyTrip({
-      tripCode,
-      tripDocId: docRef.id,
-      driverName: currentDriver.fullName,
-      driverPhone: currentDriver.phone,
-      driverCode: currentDriver.driverCode,
-      startTime: Date.now(),
-      endTime: null,
-      status: "active"
-    });
-
-    renderActiveTrip();
-    renderTrackingStatus();
-    showScreen("trip");
-    toast("تم بدء الرحلة — كود: " + tripCode, "success");
-
+    tripDocRef=docRef; activeTripId=docRef.id;
+    locationPath=initialPath.slice(); lastPushedLocation={lat:startLoc.lat,lng:startLoc.lng}; lastPushTimestamp=Date.now();
+    currentTrip={id:docRef.id,tripCode,driverId:currentDriver.id,driverCode:currentDriver.driverCode,driverName:currentDriver.fullName,driverPhone:currentDriver.phone,status:"active",startTime:new Date()};
+    saveMyTrip({tripCode,tripDocId:docRef.id,driverName:currentDriver.fullName,driverPhone:currentDriver.phone,driverCode:currentDriver.driverCode,startTime:Date.now(),endTime:null,status:"active"});
+    renderActiveTrip(); renderTrackingStatus(); showScreen("trip");
+    toast("تم بدء الرحلة — كود: "+tripCode,"success");
     startGeoWatch();
-
-  } catch(err){
-    console.error(err);
-    let msg = "فشل بدء الرحلة.";
-    if(err.code === "permission-denied") msg = "لا توجد صلاحية لبدء الرحلة.";
-    else if(err.message) msg += " " + err.message;
-    toast(msg, "error");
-  } finally {
-    showLoader(false);
-  }
+  }catch(err){
+    let msg="فشل بدء الرحلة.";
+    if(err.code==="permission-denied") msg="لا توجد صلاحية لبدء الرحلة.";
+    else if(err.message) msg+=" "+err.message;
+    toast(msg,"error");
+  }finally{ showLoader(false); }
 }
 
-/* ============================================================
-   11) Geolocation Watch
-   ============================================================ */
 function startGeoWatch(){
-  if(!navigator.geolocation) return;
-  if(geoWatchId !== null) return;
-
-  geoWatchId = navigator.geolocation.watchPosition(
-    (pos) => {
-      handleNewLocation({
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-        accuracy: pos.coords.accuracy || 0
-      });
-    },
-    (err) => console.warn("geolocation watch error", err),
-    { enableHighAccuracy: true, timeout: 20000, maximumAge: 5000 }
+  if(!navigator.geolocation||geoWatchId!==null) return;
+  geoWatchId=navigator.geolocation.watchPosition(
+    pos=>handleNewLocation({lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy||0}),
+    err=>console.warn("geolocation watch error",err),
+    {enableHighAccuracy:true,timeout:20000,maximumAge:5000}
   );
 }
-
 function stopGeoWatch(){
-  if(geoWatchId !== null && navigator.geolocation){
-    try { navigator.geolocation.clearWatch(geoWatchId); } catch(_){}
-    geoWatchId = null;
-  }
+  if(geoWatchId!==null&&navigator.geolocation){ try{navigator.geolocation.clearWatch(geoWatchId)}catch(_){} geoWatchId=null; }
 }
-
 function handleNewLocation(point){
-  const now = Date.now();
-  const shouldPush =
-    !lastPushedLocation ||
-    distanceMeters(lastPushedLocation, point) >= MIN_DISTANCE_METERS ||
-    (now - lastPushTimestamp) >= PUSH_INTERVAL_MS;
-
+  const now=Date.now();
+  const shouldPush=!lastPushedLocation||distanceMeters(lastPushedLocation,point)>=MIN_DISTANCE_METERS||(now-lastPushTimestamp)>=PUSH_INTERVAL_MS;
   if(!shouldPush) return;
-
-  locationPath.push({
-    lat: +point.lat.toFixed(6),
-    lng: +point.lng.toFixed(6),
-    accuracy: Math.round(point.accuracy)
-  });
-
-  if(locationPath.length > MAX_POINTS){
-    locationPath = locationPath.slice(-MAX_POINTS);
-  }
-
-  lastPushedLocation = { lat: point.lat, lng: point.lng };
-  lastPushTimestamp = now;
-
-  pushLocationUpdate(point);
-  renderTrackingStatus();
+  locationPath.push({lat:+point.lat.toFixed(6),lng:+point.lng.toFixed(6),accuracy:Math.round(point.accuracy)});
+  if(locationPath.length>MAX_POINTS) locationPath=locationPath.slice(-MAX_POINTS);
+  lastPushedLocation={lat:point.lat,lng:point.lng}; lastPushTimestamp=now;
+  pushLocationUpdate(point); renderTrackingStatus();
 }
-
 async function pushLocationUpdate(point){
   if(!tripDocRef) return;
-  try {
+  try{
     await tripDocRef.update({
-      locationPath: locationPath,
-      lastLocation: {
-        lat: point.lat,
-        lng: point.lng,
-        accuracy: Math.round(point.accuracy),
-        capturedAt: firebase.firestore.FieldValue.serverTimestamp()
-      },
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      locationPath, lastLocation:{lat:point.lat,lng:point.lng,accuracy:Math.round(point.accuracy),capturedAt:firebase.firestore.FieldValue.serverTimestamp()},
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
     });
-  } catch(err){
-    console.warn("push location failed", err);
-  }
+  }catch(err){}
 }
-
 function renderTrackingStatus(){
-  const el = $("trackingInfo");
-  if(!el) return;
-  const count = locationPath.length;
-  const last = locationPath[count-1];
-  el.innerHTML = `
-    <div class="info-row">
-      <span class="lbl">حالة التتبع:</span>
-      <span class="val"><span class="live-dot"></span> يعمل</span>
-    </div>
-    <div class="info-row">
-      <span class="lbl">عدد النقاط المسجَّلة:</span>
-      <span class="val">${count}</span>
-    </div>
-    ${last ? `
-      <div class="info-row">
-        <span class="lbl">آخر موقع:</span>
-        <span class="val" style="font-family:monospace;font-size:.8rem;">
-          ${last.lat.toFixed(5)}, ${last.lng.toFixed(5)}
-        </span>
-      </div>
-      <div class="info-row">
-        <span class="lbl">دقة الموقع:</span>
-        <span class="val">${last.accuracy ? "±" + last.accuracy + " م" : "—"}</span>
-      </div>` : ""}
-  `;
+  const el=$("trackingInfo"); if(!el) return;
+  const count=locationPath.length; const last=locationPath[count-1];
+  el.innerHTML=`
+    <div class="info-row"><span class="lbl">حالة التتبع:</span><span class="val"><span class="live-dot"></span> يعمل</span></div>
+    <div class="info-row"><span class="lbl">عدد النقاط المسجَّلة:</span><span class="val">${count}</span></div>
+    ${last?`<div class="info-row"><span class="lbl">آخر موقع:</span><span class="val" style="font-family:monospace;font-size:.8rem">${last.lat.toFixed(5)}, ${last.lng.toFixed(5)}</span></div>
+    <div class="info-row"><span class="lbl">دقة الموقع:</span><span class="val">${last.accuracy?"±"+last.accuracy+" م":"—"}</span></div>`:""}`;
 }
-
-/* ============================================================
-   12) Active Trip Render
-   ============================================================ */
 function renderActiveTrip(){
   if(!currentTrip) return;
-  $("activeTripCode").textContent = currentTrip.tripCode || "—";
-  $("activeTripTime").textContent = "بدأت في: " + fmtDate(currentTrip.startTime);
-
-  $("tripDriverInfo").innerHTML = `
-    <div class="info-row"><span class="lbl">الاسم:</span><span class="val">${escapeHtml(currentTrip.driverName || "—")}</span></div>
-    <div class="info-row"><span class="lbl">رقم الهاتف:</span><span class="val"><a href="tel:${escapeHtml(currentTrip.driverPhone || "")}">${escapeHtml(currentTrip.driverPhone || "—")}</a></span></div>
-    <div class="info-row"><span class="lbl">كود السائق:</span><span class="val" style="font-family:monospace;">${escapeHtml(currentTrip.driverCode || "—")}</span></div>
-  `;
+  $("activeTripCode").textContent=currentTrip.tripCode||"—";
+  $("activeTripTime").textContent="بدأت في: "+fmtDate(currentTrip.startTime);
+  $("tripDriverInfo").innerHTML=`
+    <div class="info-row"><span class="lbl">الاسم:</span><span class="val">${escapeHtml(currentTrip.driverName||"—")}</span></div>
+    <div class="info-row"><span class="lbl">رقم الهاتف:</span><span class="val"><a href="tel:${escapeHtml(currentTrip.driverPhone||"")}">${escapeHtml(currentTrip.driverPhone||"—")}</a></span></div>
+    <div class="info-row"><span class="lbl">كود السائق:</span><span class="val" style="font-family:monospace">${escapeHtml(currentTrip.driverCode||"—")}</span></div>`;
 }
 
-/* ============================================================
-   13) End Trip
-   ============================================================ */
-$("endTripBtn").addEventListener("click", ()=>{
-  openModal({
-    icon:"warn",
-    title:"إنهاء الرحلة؟",
-    text:"سيتم إنهاء الرحلة وتسجيل وقت الانتهاء وموقعك الحالي.",
-    buttons:[
-      {label:"نعم، إنهِ الرحلة", className:"btn-danger", onClick: endTrip},
-      {label:"إلغاء", className:"btn-ghost"}
-    ]
-  });
+$("endTripBtn").addEventListener("click",()=>{
+  openModal({icon:"warn",title:"إنهاء الرحلة؟",text:"سيتم إنهاء الرحلة وتسجيل وقت الانتهاء وموقعك الحالي.",buttons:[
+    {label:"نعم، إنهِ الرحلة",className:"btn-danger",onClick:endTrip},
+    {label:"إلغاء",className:"btn-ghost"}
+  ]});
 });
 
 async function endTrip(){
-  if(!activeTripId || !tripDocRef) return;
-
-  const btn = $("endTripBtn");
-  btn.classList.add("loading");
-  btn.disabled = true;
-
-  try {
+  if(!activeTripId||!tripDocRef) return;
+  const btn=$("endTripBtn"); btn.classList.add("loading"); btn.disabled=true;
+  try{
     stopGeoWatch();
-
-    let endLoc = null;
-    try {
-      const last = await getCurrentPositionOnce();
-      endLoc = {
-        lat: +last.lat.toFixed(6),
-        lng: +last.lng.toFixed(6),
-        accuracy: Math.round(last.accuracy || 0),
-        capturedAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-      locationPath.push({ lat: endLoc.lat, lng: endLoc.lng, accuracy: endLoc.accuracy });
-    } catch(_){}
-
-    showLoader(true, "جارٍ إنهاء الرحلة...");
-    await tripDocRef.update({
-      status: "completed",
-      endTime: firebase.firestore.FieldValue.serverTimestamp(),
-      endLocation: endLoc,
-      locationPath: locationPath,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    currentTrip.status = "completed";
-    currentTrip.endTime = new Date();
-
-    updateMyTrip(currentTrip.tripCode, {
-      status: "completed",
-      endTime: Date.now()
-    });
-
-    openModal({
-      icon:"success",
-      title:"انتهت الرحلة",
-      text:`كود الرحلة: ${currentTrip.tripCode}\nعدد النقاط: ${locationPath.length}\nشكرًا لاستخدامك لزقة أمان.`,
-      buttons:[
-        {label:"العودة للرئيسية", className:"btn-primary", onClick:()=>{
-          currentTrip = null; activeTripId = null; currentDriver = null;
-          tripDocRef = null; locationPath = []; lastPushedLocation = null;
-          showScreen("home");
-        }}
-      ]
-    });
-
-  } catch(err){
-    console.error(err);
-    let msg = "فشل إنهاء الرحلة.";
-    if(err.code === "permission-denied") msg = "لا توجد صلاحية لإنهاء الرحلة.";
-    else if(err.message) msg += " " + err.message;
-    toast(msg, "error");
-    startGeoWatch();
-  } finally {
-    showLoader(false);
-    btn.classList.remove("loading");
-    btn.disabled = false;
-  }
+    let endLoc=null;
+    try{
+      const last=await getCurrentPositionOnce();
+      endLoc={lat:+last.lat.toFixed(6),lng:+last.lng.toFixed(6),accuracy:Math.round(last.accuracy||0),capturedAt:firebase.firestore.FieldValue.serverTimestamp()};
+      locationPath.push({lat:endLoc.lat,lng:endLoc.lng,accuracy:endLoc.accuracy});
+    }catch(_){}
+    showLoader(true,"جارٍ إنهاء الرحلة...");
+    await tripDocRef.update({status:"completed",endTime:firebase.firestore.FieldValue.serverTimestamp(),endLocation:endLoc,locationPath,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+    currentTrip.status="completed"; currentTrip.endTime=new Date();
+    updateMyTrip(currentTrip.tripCode,{status:"completed",endTime:Date.now()});
+    openModal({icon:"success",title:"انتهت الرحلة",text:`كود الرحلة: ${currentTrip.tripCode}\nعدد النقاط: ${locationPath.length}\nشكرًا لاستخدامك لزقة أمان.`,buttons:[
+      {label:"العودة للرئيسية",className:"btn-primary",onClick:()=>{currentTrip=null;activeTripId=null;currentDriver=null;tripDocRef=null;locationPath=[];lastPushedLocation=null;showScreen("home");}}
+    ]});
+  }catch(err){
+    let msg="فشل إنهاء الرحلة.";
+    if(err.code==="permission-denied") msg="لا توجد صلاحية لإنهاء الرحلة.";
+    else if(err.message) msg+=" "+err.message;
+    toast(msg,"error"); startGeoWatch();
+  }finally{ showLoader(false); btn.classList.remove("loading"); btn.disabled=false; }
 }
 
-$("backHomeFromTrip").addEventListener("click", ()=>{
-  if(currentTrip && currentTrip.status === "active"){
-    openModal({
-      icon:"warn",
-      title:"لديك رحلة نشطة",
-      text:"إذا خرجت الآن، ستبقى الرحلة نشطة. يمكنك إنهاؤها من قائمة رحلاتي.",
-      buttons:[
-        {label:"البقاء هنا", className:"btn-primary"},
-        {label:"الخروج للرئيسية", className:"btn-ghost", onClick:()=>{
-          currentTrip = null; activeTripId = null; currentDriver = null;
-          tripDocRef = null;
-          showScreen("home");
-        }}
-      ]
-    });
-  } else {
-    showScreen("home");
-  }
+$("backHomeFromTrip").addEventListener("click",()=>{
+  if(currentTrip&&currentTrip.status==="active"){
+    openModal({icon:"warn",title:"لديك رحلة نشطة",text:"إذا خرجت الآن، ستبقى الرحلة نشطة. يمكنك إنهاؤها من قائمة رحلاتي.",buttons:[
+      {label:"البقاء هنا",className:"btn-primary"},
+      {label:"الخروج للرئيسية",className:"btn-ghost",onClick:()=>{currentTrip=null;activeTripId=null;currentDriver=null;tripDocRef=null;showScreen("home");}}
+    ]});
+  }else showScreen("home");
 });
 
-/* ============================================================
-   14) حفظ صورة الرحلة (PNG)
-   ============================================================ */
-$("saveTripImageBtn").addEventListener("click", async ()=>{
+$("saveTripImageBtn").addEventListener("click",async()=>{
   if(!currentTrip) return;
-
-  const btn = $("saveTripImageBtn");
-  btn.disabled = true;
-  btn.classList.add("loading");
-
-  try {
-    const startLoc = locationPath[0];
-    const endLoc = locationPath[locationPath.length-1];
-
-    $("tripSummary").innerHTML = `
-      <div class="brand">
-        <span class="shield"></span>
-        لزقة أمان
-      </div>
+  const btn=$("saveTripImageBtn"); btn.disabled=true; btn.classList.add("loading");
+  try{
+    const startLoc=locationPath[0]; const endLoc=locationPath[locationPath.length-1];
+    $("tripSummary").innerHTML=`
+      <div class="brand"><span class="shield"></span> لزقة أمان</div>
       <div class="title">ملخص الرحلة</div>
       <div class="code-big">${escapeHtml(currentTrip.tripCode)}</div>
       <div class="rows">
-        <div class="row"><span class="lbl">السائق:</span><span class="val">${escapeHtml(currentTrip.driverName || "—")}</span></div>
-        <div class="row"><span class="lbl">الهاتف:</span><span class="val">${escapeHtml(currentTrip.driverPhone || "—")}</span></div>
-        <div class="row"><span class="lbl">كود السائق:</span><span class="val">${escapeHtml(currentTrip.driverCode || "—")}</span></div>
+        <div class="row"><span class="lbl">السائق:</span><span class="val">${escapeHtml(currentTrip.driverName||"—")}</span></div>
+        <div class="row"><span class="lbl">الهاتف:</span><span class="val">${escapeHtml(currentTrip.driverPhone||"—")}</span></div>
+        <div class="row"><span class="lbl">كود السائق:</span><span class="val">${escapeHtml(currentTrip.driverCode||"—")}</span></div>
         <div class="row"><span class="lbl">البداية:</span><span class="val">${fmtDate(currentTrip.startTime)}</span></div>
         <div class="row"><span class="lbl">النهاية:</span><span class="val">${fmtDate(currentTrip.endTime)}</span></div>
         <div class="row"><span class="lbl">عدد النقاط:</span><span class="val">${locationPath.length}</span></div>
-        ${startLoc ? `<div class="row"><span class="lbl">موقع البداية:</span><span class="val" style="font-size:.78rem;">${startLoc.lat.toFixed(5)}, ${startLoc.lng.toFixed(5)}</span></div>` : ""}
-        ${endLoc ? `<div class="row"><span class="lbl">موقع النهاية:</span><span class="val" style="font-size:.78rem;">${endLoc.lat.toFixed(5)}, ${endLoc.lng.toFixed(5)}</span></div>` : ""}
+        ${startLoc?`<div class="row"><span class="lbl">موقع البداية:</span><span class="val" style="font-size:.78rem">${startLoc.lat.toFixed(5)}, ${startLoc.lng.toFixed(5)}</span></div>`:""}
+        ${endLoc?`<div class="row"><span class="lbl">موقع النهاية:</span><span class="val" style="font-size:.78rem">${endLoc.lat.toFixed(5)}, ${endLoc.lng.toFixed(5)}</span></div>`:""}
         <div class="row"><span class="lbl">الحالة:</span><span class="val">${statusLabel(currentTrip.status)}</span></div>
       </div>
-      <div class="footer">شكرًا لاستخدامك لزقة أمان</div>
-    `;
-
-    await new Promise(r => setTimeout(r, 100));
-
-    const canvas = await html2canvas($("tripSummary"), {
-      backgroundColor: "#ffffff",
-      scale: 2,
-      useCORS: true,
-      logging: false
-    });
-
-    const dataUrl = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = dataUrl;
-    a.download = `trip-${currentTrip.tripCode || "summary"}.png`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    toast("تم حفظ صورة الرحلة.", "success");
-  } catch(err){
-    console.error(err);
-    toast("فشل إنشاء الصورة: " + err.message, "error");
-  } finally {
-    btn.disabled = false;
-    btn.classList.remove("loading");
-  }
+      <div class="footer">شكرًا لاستخدامك لزقة أمان</div>`;
+    await new Promise(r=>setTimeout(r,100));
+    const canvas=await html2canvas($("tripSummary"),{backgroundColor:"#ffffff",scale:2,useCORS:true,logging:false});
+    const dataUrl=canvas.toDataURL("image/png");
+    const a=document.createElement("a"); a.href=dataUrl; a.download=`trip-${currentTrip.tripCode||"summary"}.png`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast("تم حفظ صورة الرحلة.","success");
+  }catch(err){ toast("فشل إنشاء الصورة: "+err.message,"error"); }
+  finally{ btn.disabled=false; btn.classList.remove("loading"); }
 });
 
-/* ============================================================
-   15) My Trips + Search
-   ============================================================ */
-$("goSearch").addEventListener("click", ()=>showScreen("search"));
-
+$("goSearch").addEventListener("click",()=>showScreen("search"));
 document.querySelectorAll(".tab").forEach(tab=>{
-  tab.addEventListener("click", ()=>{
+  tab.addEventListener("click",()=>{
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
     tab.classList.add("active");
-    const which = tab.dataset.tab;
-    $("tab-my").style.display = which === "my" ? "block" : "none";
-    $("tab-find").style.display = which === "find" ? "block" : "none";
+    const which=tab.dataset.tab;
+    $("tab-my").style.display=which==="my"?"block":"none";
+    $("tab-find").style.display=which==="find"?"block":"none";
   });
 });
 
 function renderMyTrips(){
-  const list = getMyTrips();
-  const wrap = $("myTripsList");
-  if(list.length === 0){
-    wrap.innerHTML = `
-      <div class="empty-state">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <p>لا توجد رحلات محفوظة بعد.</p>
-        <p style="font-size:.85rem;margin-top:6px;">ابدأ رحلة جديدة من "امسح QR السائق".</p>
-      </div>
-    `;
+  const list=getMyTrips(); const wrap=$("myTripsList");
+  if(list.length===0){
+    wrap.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><p>لا توجد رحلات محفوظة بعد.</p><p style="font-size:.85rem;margin-top:6px">ابدأ رحلة جديدة من "امسح QR السائق".</p></div>`;
     return;
   }
-
-  wrap.innerHTML = list.map(t=>{
-    const statusClass = t.status === "completed" ? "completed" : t.status === "cancelled" ? "cancelled" : "active";
-    return `
-      <div class="trip-item" data-code="${escapeHtml(t.tripCode)}">
-        <div class="info">
-          <div class="code">${escapeHtml(t.tripCode)}</div>
-          <div class="meta">
-            ${escapeHtml(t.driverName || "—")} · ${fmtDate(t.startTime)}
-          </div>
-        </div>
-        <span class="status-pill ${statusClass}">${statusLabel(t.status)}</span>
-        <button class="btn btn-danger btn-sm" data-remove="${escapeHtml(t.tripCode)}" title="حذف">×</button>
-      </div>
-    `;
+  wrap.innerHTML=list.map(t=>{
+    const statusClass=t.status==="completed"?"completed":t.status==="cancelled"?"cancelled":"active";
+    return `<div class="trip-item" data-code="${escapeHtml(t.tripCode)}">
+      <div class="info"><div class="code">${escapeHtml(t.tripCode)}</div><div class="meta">${escapeHtml(t.driverName||"—")} · ${fmtDate(t.startTime)}</div></div>
+      <span class="status-pill ${statusClass}">${statusLabel(t.status)}</span>
+      <button class="btn btn-danger btn-sm" data-remove="${escapeHtml(t.tripCode)}" title="حذف">×</button>
+    </div>`;
   }).join("");
-
   wrap.querySelectorAll("[data-remove]").forEach(b=>{
-    b.addEventListener("click", (e)=>{
-      e.stopPropagation();
-      const code = b.dataset.remove;
-      if(confirm("حذف هذه الرحلة من قائمتك المحلية؟")){
-        removeMyTrip(code);
-        renderMyTrips();
-      }
-    });
+    b.addEventListener("click",e=>{ e.stopPropagation(); if(confirm("حذف هذه الرحلة من قائمتك المحلية؟")){ removeMyTrip(b.dataset.remove); renderMyTrips(); } });
   });
-
   wrap.querySelectorAll(".trip-item").forEach(item=>{
-    item.addEventListener("click", ()=>{
-      const code = item.dataset.code;
-      $("searchTripCode").value = code;
+    item.addEventListener("click",()=>{
+      $("searchTripCode").value=item.dataset.code;
       document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
       document.querySelector('.tab[data-tab="find"]').classList.add("active");
-      $("tab-my").style.display = "none";
-      $("tab-find").style.display = "block";
+      $("tab-my").style.display="none"; $("tab-find").style.display="block";
       $("searchTripBtn").click();
     });
   });
 }
 
-$("searchTripBtn").addEventListener("click", async ()=>{
-  const code = ($("searchTripCode").value || "").trim();
-  if(!/^\d{4,5}$/.test(code)){
-    $("err-searchTripCode").textContent = "يرجى إدخال كود صحيح (4 أرقام).";
-    $("err-searchTripCode").classList.add("show");
-    $("searchTripCode").classList.add("invalid");
-    return;
-  }
-  $("err-searchTripCode").classList.remove("show");
-  $("searchTripCode").classList.remove("invalid");
-
-  const btn = $("searchTripBtn");
-  btn.classList.add("loading");
-  btn.disabled = true;
-
-  try {
-    const snap = await db.collection("trips")
-      .where("tripCode", "==", code)
-      .limit(1)
-      .get();
-
-    const result = $("searchResult");
-    if(snap.empty){
-      result.innerHTML = `
-        <div class="card">
-          <div class="status-banner error">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
-            لم نجد رحلة بهذا الكود.
-          </div>
-        </div>`;
-      return;
-    }
-
-    const t = snap.docs[0].data();
-    const statusClass = t.status === "completed" ? "success" : t.status === "cancelled" ? "error" : "info";
-    const pathCount = (t.locationPath && t.locationPath.length) || 0;
-
-    result.innerHTML = `
-      <div class="card">
-        <div class="status-banner ${statusClass}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          حالة الرحلة: ${statusLabel(t.status)}
-        </div>
-        <div class="info-row"><span class="lbl">كود الرحلة:</span><span class="val" style="font-family:monospace;font-size:1.2rem;">${escapeHtml(t.tripCode)}</span></div>
-        <div class="info-row"><span class="lbl">كود السائق:</span><span class="val" style="font-family:monospace;">${escapeHtml(t.driverCode || "—")}</span></div>
-        <div class="info-row"><span class="lbl">اسم السائق:</span><span class="val">${escapeHtml(t.driverName || "—")}</span></div>
-        <div class="info-row"><span class="lbl">بداية الرحلة:</span><span class="val">${fmtDate(t.startTime)}</span></div>
-        <div class="info-row"><span class="lbl">نهاية الرحلة:</span><span class="val">${fmtDate(t.endTime)}</span></div>
-        <div class="info-row"><span class="lbl">عدد نقاط المسار:</span><span class="val">${pathCount}</span></div>
-      </div>`;
-  } catch(err){
-    console.error(err);
-    toast("تعذّر البحث: " + err.message, "error");
-  } finally {
-    btn.classList.remove("loading");
-    btn.disabled = false;
-  }
+$("searchTripBtn").addEventListener("click",async()=>{
+  const code=($("searchTripCode").value||"").trim();
+  if(!/^\d{4,5}$/.test(code)){ $("err-searchTripCode").textContent="يرجى إدخال كود صحيح (4 أرقام)."; $("err-searchTripCode").classList.add("show"); $("searchTripCode").classList.add("invalid"); return; }
+  $("err-searchTripCode").classList.remove("show"); $("searchTripCode").classList.remove("invalid");
+  const btn=$("searchTripBtn"); btn.classList.add("loading"); btn.disabled=true;
+  try{
+    const snap=await db.collection("trips").where("tripCode","==",code).limit(1).get();
+    const result=$("searchResult");
+    if(snap.empty){ result.innerHTML=`<div class="card"><div class="status-banner error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>لم نجد رحلة بهذا الكود.</div></div>`; return; }
+    const t=snap.docs[0].data();
+    const statusClass=t.status==="completed"?"success":t.status==="cancelled"?"error":"info";
+    const pathCount=(t.locationPath&&t.locationPath.length)||0;
+    result.innerHTML=`<div class="card">
+      <div class="status-banner ${statusClass}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>حالة الرحلة: ${statusLabel(t.status)}</div>
+      <div class="info-row"><span class="lbl">كود الرحلة:</span><span class="val" style="font-family:monospace;font-size:1.2rem">${escapeHtml(t.tripCode)}</span></div>
+      <div class="info-row"><span class="lbl">كود السائق:</span><span class="val" style="font-family:monospace">${escapeHtml(t.driverCode||"—")}</span></div>
+      <div class="info-row"><span class="lbl">اسم السائق:</span><span class="val">${escapeHtml(t.driverName||"—")}</span></div>
+      <div class="info-row"><span class="lbl">بداية الرحلة:</span><span class="val">${fmtDate(t.startTime)}</span></div>
+      <div class="info-row"><span class="lbl">نهاية الرحلة:</span><span class="val">${fmtDate(t.endTime)}</span></div>
+      <div class="info-row"><span class="lbl">عدد نقاط المسار:</span><span class="val">${pathCount}</span></div>
+    </div>`;
+  }catch(err){ toast("تعذّر البحث: "+err.message,"error"); }
+  finally{ btn.classList.remove("loading"); btn.disabled=false; }
 });
 
-/* ============================================================
-   16) Report
-   ============================================================ */
-$("goReport").addEventListener("click", ()=>showScreen("report"));
-
-$("reportForm").addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  let ok = true;
-
-  const tripCodeRaw = ($("repTripCode").value || "").trim();
-  if(!tripCodeRaw){
-    $("err-repTripCode").textContent = "كود الرحلة إجباري.";
-    $("err-repTripCode").classList.add("show");
-    $("repTripCode").classList.add("invalid");
-    ok = false;
-  } else if(!/^\d{4,5}$/.test(tripCodeRaw)){
-    $("err-repTripCode").textContent = "كود الرحلة يجب أن يكون 4 أرقام.";
-    $("err-repTripCode").classList.add("show");
-    $("repTripCode").classList.add("invalid");
-    ok = false;
-  } else {
-    $("err-repTripCode").classList.remove("show");
-    $("repTripCode").classList.remove("invalid");
-  }
-
-  const cat = $("repCategory").value;
-  if(!cat){
-    $("err-repCategory").textContent = "يرجى اختيار تصنيف البلاغ.";
-    $("err-repCategory").classList.add("show");
-    $("repCategory").classList.add("invalid");
-    ok = false;
-  } else {
-    $("err-repCategory").classList.remove("show");
-    $("repCategory").classList.remove("invalid");
-  }
-
-  const desc = ($("repDescription").value || "").trim();
-  if(!desc || desc.length < 10){
-    $("err-repDescription").textContent = "يرجى كتابة وصف واضح (10 أحرف على الأقل).";
-    $("err-repDescription").classList.add("show");
-    $("repDescription").classList.add("invalid");
-    ok = false;
-  } else {
-    $("err-repDescription").classList.remove("show");
-    $("repDescription").classList.remove("invalid");
-  }
-
-  const phone = ($("repPhone").value || "").trim();
-  if(phone && !/^01[0125][0-9]{8}$/.test(phone)){
-    $("err-repPhone").textContent = "رقم الهاتف غير صحيح.";
-    $("err-repPhone").classList.add("show");
-    $("repPhone").classList.add("invalid");
-    ok = false;
-  } else {
-    $("err-repPhone").classList.remove("show");
-    $("repPhone").classList.remove("invalid");
-  }
-
+$("goReport").addEventListener("click",()=>showScreen("report"));
+$("reportForm").addEventListener("submit",async e=>{
+  e.preventDefault(); let ok=true;
+  const tripCodeRaw=($("repTripCode").value||"").trim();
+  if(!tripCodeRaw){ $("err-repTripCode").textContent="كود الرحلة إجباري."; $("err-repTripCode").classList.add("show"); $("repTripCode").classList.add("invalid"); ok=false; }
+  else if(!/^\d{4,5}$/.test(tripCodeRaw)){ $("err-repTripCode").textContent="كود الرحلة يجب أن يكون 4 أرقام."; $("err-repTripCode").classList.add("show"); $("repTripCode").classList.add("invalid"); ok=false; }
+  else{ $("err-repTripCode").classList.remove("show"); $("repTripCode").classList.remove("invalid"); }
+  const cat=$("repCategory").value;
+  if(!cat){ $("err-repCategory").textContent="يرجى اختيار تصنيف البلاغ."; $("err-repCategory").classList.add("show"); $("repCategory").classList.add("invalid"); ok=false; }
+  else{ $("err-repCategory").classList.remove("show"); $("repCategory").classList.remove("invalid"); }
+  const desc=($("repDescription").value||"").trim();
+  if(!desc||desc.length<10){ $("err-repDescription").textContent="يرجى كتابة وصف واضح (10 أحرف على الأقل)."; $("err-repDescription").classList.add("show"); $("repDescription").classList.add("invalid"); ok=false; }
+  else{ $("err-repDescription").classList.remove("show"); $("repDescription").classList.remove("invalid"); }
+  const phone=($("repPhone").value||"").trim();
+  if(phone&&!/^01[0125][0-9]{8}$/.test(phone)){ $("err-repPhone").textContent="رقم الهاتف غير صحيح."; $("err-repPhone").classList.add("show"); $("repPhone").classList.add("invalid"); ok=false; }
+  else{ $("err-repPhone").classList.remove("show"); $("repPhone").classList.remove("invalid"); }
   if(!ok) return;
-
-  const btn = $("submitReportBtn");
-  btn.classList.add("loading");
-  btn.disabled = true;
-
-  try {
-    const tripSnap = await db.collection("trips")
-      .where("tripCode", "==", tripCodeRaw)
-      .limit(1)
-      .get();
-
-    if(tripSnap.empty){
-      $("err-repTripCode").textContent = "كود الرحلة غير موجود في النظام.";
-      $("err-repTripCode").classList.add("show");
-      $("repTripCode").classList.add("invalid");
-      toast("كود الرحلة غير موجود.", "error");
-      return;
-    }
-
-    const tripData = tripSnap.docs[0].data();
-    const reportId = "RPT-" + Date.now().toString(36).toUpperCase().slice(-6) + "-" + Math.random().toString(36).slice(2,6).toUpperCase();
-
+  const btn=$("submitReportBtn"); btn.classList.add("loading"); btn.disabled=true;
+  try{
+    const tripSnap=await db.collection("trips").where("tripCode","==",tripCodeRaw).limit(1).get();
+    if(tripSnap.empty){ $("err-repTripCode").textContent="كود الرحلة غير موجود في النظام."; $("err-repTripCode").classList.add("show"); $("repTripCode").classList.add("invalid"); toast("كود الرحلة غير موجود.","error"); return; }
+    const tripData=tripSnap.docs[0].data();
+    const reportId="RPT-"+Date.now().toString(36).toUpperCase().slice(-6)+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
     await db.collection("reports").add({
-      reportId,
-      tripCode: tripCodeRaw,
-      tripDocId: tripSnap.docs[0].id,
-      driverId: tripData.driverId || null,
-      driverCode: tripData.driverCode || null,
-      category: cat,
-      description: desc,
-      contactPhone: phone || null,
-      status: "new",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      reportId,tripCode:tripCodeRaw,tripDocId:tripSnap.docs[0].id,driverId:tripData.driverId||null,driverCode:tripData.driverCode||null,
+      category:cat,description:desc,contactPhone:phone||null,status:"new",createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
-
     $("reportForm").reset();
-    openModal({
-      icon:"success",
-      title:"تم إرسال البلاغ",
-      text:`رقم البلاغ: ${reportId}\nسيتم مراجعته من الإدارة قريبًا.`,
-      buttons:[{label:"العودة للرئيسية", className:"btn-primary", onClick:()=>showScreen("home")}]
-    });
-    toast("تم إرسال البلاغ بنجاح.", "success");
-
-  } catch(err){
-    console.error(err);
-    let msg = "فشل إرسال البلاغ.";
-    if(err.code === "permission-denied") msg = "لا توجد صلاحية للتحقق من الرحلة.";
-    else if(err.message) msg += " " + err.message;
-    toast(msg, "error");
-  } finally {
-    btn.classList.remove("loading");
-    btn.disabled = false;
-  }
+    openModal({icon:"success",title:"تم إرسال البلاغ",text:`رقم البلاغ: ${reportId}\nسيتم مراجعته من الإدارة قريبًا.`,buttons:[{label:"العودة للرئيسية",className:"btn-primary",onClick:()=>showScreen("home")}]});
+    toast("تم إرسال البلاغ بنجاح.","success");
+  }catch(err){
+    let msg="فشل إرسال البلاغ.";
+    if(err.code==="permission-denied") msg="لا توجد صلاحية للتحقق من الرحلة.";
+    else if(err.message) msg+=" "+err.message;
+    toast(msg,"error");
+  }finally{ btn.classList.remove("loading"); btn.disabled=false; }
 });
 
-/* ============================================================
-   17) تشغيل تلقائي
-   ============================================================ */
 renderMyTrips();
 autoLoadDriverFromUrl();
-
-window.addEventListener("beforeunload", ()=>{
-  if(scanState.scanner && scanState.scanning){
-    try{ scanState.scanner.stop(); }catch(_){}
-  }
+window.addEventListener("beforeunload",()=>{
+  if(scanState.scanner&&scanState.scanning){ try{scanState.scanner.stop()}catch(_){} }
   stopGeoWatch();
 });
+
 </script>
 </body>
 </html>
