@@ -314,6 +314,8 @@
     position:absolute;top:calc(50% + 45px);
     color:var(--primary);font-weight:600;
     font-size:.95rem;
+    text-align:center;
+    padding:0 20px;
   }
 
   .toast-wrap{
@@ -375,7 +377,7 @@
   }
   .back-link svg{width:18px;height:18px;}
 
-  /* ===== Trip Summary (hidden, for image capture) ===== */
+  /* ===== Trip Summary (hidden for image export) ===== */
   #tripSummary{
     background:#fff;padding:24px;
     border-radius:14px;border:2px dashed var(--primary);
@@ -598,7 +600,7 @@
       <div class="card">
         <div class="field">
           <label for="searchTripCode">كود الرحلة <span class="required">*</span></label>
-          <input type="text" id="searchTripCode" class="code-input" placeholder="1234" maxlength="4" inputmode="numeric" autocomplete="off" />
+          <input type="text" id="searchTripCode" class="code-input" placeholder="1234" maxlength="5" inputmode="numeric" autocomplete="off" />
           <div class="hint" style="text-align:center;">أدخل 4 أرقام</div>
           <div class="err" id="err-searchTripCode"></div>
         </div>
@@ -629,7 +631,7 @@
     <form id="reportForm" class="card" novalidate>
       <div class="field">
         <label for="repTripCode">كود الرحلة <span class="required">*</span></label>
-        <input type="text" id="repTripCode" class="code-input" placeholder="1234" maxlength="4" inputmode="numeric" autocomplete="off" />
+        <input type="text" id="repTripCode" class="code-input" placeholder="1234" maxlength="5" inputmode="numeric" autocomplete="off" />
         <div class="hint" style="text-align:center;">أدخل كود الرحلة (4 أرقام)</div>
         <div class="err" id="err-repTripCode"></div>
       </div>
@@ -917,7 +919,7 @@ $("stopScan").addEventListener("click", ()=>{
   showScreen("home");
 });
 
-/* ✅ يدعم كود السائق بأشكال متعددة (D-1234 أو DRV-XXXX) */
+/* ✅ يدعم D-1234 و DRV-XXXX */
 function extractDriverCode(text){
   if(!text) return null;
   const trimmed = text.trim();
@@ -928,11 +930,9 @@ function extractDriverCode(text){
     if(d) return d;
   } catch(_){}
 
-  // كود بصيغة D-1234
-  const m1 = trimmed.match(/(D-\d{4})/i);
+  const m1 = trimmed.match(/(D-\d{4,5})/i);
   if(m1) return m1[1].toUpperCase();
 
-  // كود بصيغة DRV-XXXX-YYYY (توافق للإصدار القديم)
   const m2 = trimmed.match(/(DRV-[A-Z0-9]+-[A-Z0-9]+)/i);
   if(m2) return m2[1];
 
@@ -955,10 +955,11 @@ async function handleScannedText(text){
       .get();
 
     if(snap.empty){
+      // ✅ لو الكود مش موجود في السائقين المعتمدين
       openModal({
-        icon:"error",
-        title:"سائق غير موجود",
-        text:"لم نجد أي سائق مطابق لهذا الكود.",
+        icon:"warn",
+        title:"السائق غير معتمد",
+        text: "هذا السائق لم يتم اعتماده بعد من قِبل الإدارة.\nأو أن الكود غير صحيح.\n\nلا يمكن بدء الرحلة حاليًا.",
         buttons:[{label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}]
       });
       return;
@@ -987,7 +988,6 @@ async function handleScannedText(text){
 
     renderDriverScreen();
     showScreen("driver");
-    // نبدأ الرحلة تلقائيًا بعد 1.5 ثانية
     setTimeout(()=> autoStartTrip(), 1500);
 
   } catch(err){
@@ -1005,13 +1005,30 @@ async function handleScannedText(text){
   }
 }
 
+/* ✅ قراءة الرابط عند فتح الصفحة */
 async function autoLoadDriverFromUrl(){
   const params = new URLSearchParams(window.location.search);
+
+  // ✅ حالة 1: QR مؤقت — لسه متوافقش عليه
+  const pendingCode = params.get("pendingDriver");
+  if(pendingCode){
+    window.history.replaceState({}, "", window.location.pathname);
+    openModal({
+      icon:"warn",
+      title:"طلب التسجيل قيد المراجعة",
+      text: "هذا السائق لم يتم اعتماده بعد من قِبل الإدارة.\nلا يمكن بدء الرحلة حاليًا.\n\nيرجى المحاولة لاحقًا بعد مراجعة الطلب (قد تستغرق المراجعة حتى 24 ساعة).",
+      buttons:[
+        {label:"حسنًا", className:"btn-primary", onClick:()=>showScreen("home")}
+      ]
+    });
+    return;
+  }
+
+  // ✅ حالة 2: QR حقيقي — بعد الموافقة
   const code = params.get("driver") || params.get("d");
   if(!code) return;
 
-  // نتحقق من الصيغ المدعومة
-  if(!/^D-\d{4}$/i.test(code) && !/^DRV-[A-Z0-9]+-[A-Z0-9]+$/i.test(code)) return;
+  if(!/^D-\d{4,5}$/i.test(code) && !/^DRV-[A-Z0-9]+-[A-Z0-9]+$/i.test(code)) return;
 
   window.history.replaceState({}, "", window.location.pathname);
 
@@ -1024,9 +1041,9 @@ async function autoLoadDriverFromUrl(){
 
     if(snap.empty){
       openModal({
-        icon:"error",
-        title:"سائق غير موجود",
-        text:"الرابط الذي فتحته لا يشير إلى سائق صحيح.",
+        icon:"warn",
+        title:"السائق غير معتمد",
+        text: "الرابط الذي فتحته لا يشير إلى سائق معتمد.",
         buttons:[{label:"حسنًا", className:"btn-primary"}]
       });
       return;
@@ -1128,7 +1145,7 @@ function distanceMeters(a, b){
 }
 
 /* ============================================================
-   10) Start Trip — كود 4 أرقام + التحقق من التعارض
+   10) Start Trip — كود 4 أرقام
    ============================================================ */
 function generateRandomFourDigits(){
   return String(Math.floor(1000 + Math.random() * 9000));
@@ -1143,7 +1160,6 @@ async function generateUniqueTripCode(){
       .get();
     if(exists.empty) return code;
   }
-  // في حال نادرة جدًا — نستخدم كود بـ 5 أرقام كـ fallback
   return String(Math.floor(10000 + Math.random() * 90000));
 }
 
@@ -1178,8 +1194,6 @@ async function autoStartTrip(){
 
     showLoader(true, "جارٍ تسجيل الرحلة...");
     const now = firebase.firestore.FieldValue.serverTimestamp();
-
-    // ✅ كود من 4 أرقام مع التحقق من عدم التعارض
     const tripCode = await generateUniqueTripCode();
 
     const startPoint = {
@@ -1601,7 +1615,6 @@ function renderMyTrips(){
   });
 }
 
-// ✅ البحث بكود 4 أرقام
 $("searchTripBtn").addEventListener("click", async ()=>{
   const code = ($("searchTripCode").value || "").trim();
   if(!/^\d{4,5}$/.test(code)){
